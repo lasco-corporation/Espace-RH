@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Espace RH — Lasco Corporation</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy:#1f3864; --navy-d:#162848; --gold:#c69b2e; --gold-l:#f3e4be;
+  --green:#3f7d3f; --green-l:#e7f0e7;
+  --blue:#2e5496; --blue-l:#e3ebf7;
+  --grey:#5a6270; --bg:#f4f6fb;
+}
+* { margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; }
+body { background:linear-gradient(160deg,var(--bg),#dde4f2); min-height:100vh; padding:32px 16px; color:#222; }
+.wrap { max-width:1200px; margin:0 auto; }
+
+.head { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:22px; }
+.kicker { color:var(--gold); font-weight:700; font-size:11px; letter-spacing:3px; text-transform:uppercase; margin-bottom:4px; }
+h1 { font-family:'Playfair Display',serif; color:var(--navy); font-size:clamp(26px,3.5vw,38px); }
+.sub { color:var(--grey); font-size:14px; margin-top:4px; }
+.search { position:relative; }
+.search input { padding:11px 16px 11px 42px; border:2px solid #d7deeb; border-radius:24px; font-size:14px; width:280px; background:#fff; }
+.search input:focus { outline:none; border-color:var(--gold); }
+.search::before { content:"🔍"; position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:15px; }
+
+.tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:22px; background:#fff; padding:8px; border-radius:14px; box-shadow:0 4px 14px rgba(31,56,100,.06); }
+.tabs button { padding:12px 18px; border:none; background:transparent; color:var(--grey); border-radius:10px; font-size:13.5px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; transition:all .15s ease; }
+.tabs button:hover { color:var(--navy); background:#f4f6fb; }
+.tabs button.on { background:var(--navy); color:#fff; }
+
+.panel { background:#fff; border-radius:16px; padding:32px; box-shadow:0 8px 26px rgba(31,56,100,.10); }
+.panel-head { padding-bottom:18px; margin-bottom:22px; border-bottom:2px solid var(--gold-l); }
+.panel-head h2 { color:var(--navy); font-family:'Playfair Display',serif; font-size:26px; }
+.panel-head p { color:var(--grey); font-size:14px; margin-top:6px; }
+
+.section { display:none; }
+.section.on { display:block; }
+.section h3 { color:var(--navy); font-family:'Playfair Display',serif; font-size:19px; margin:24px 0 10px; padding-bottom:6px; border-bottom:1px solid #eef1f7; }
+.section h3:first-child { margin-top:0; }
+.section p { color:#333; font-size:14.5px; line-height:1.65; margin-bottom:10px; }
+.section ul { padding-left:22px; margin:8px 0; }
+.section ul li { color:#333; font-size:14.5px; line-height:1.65; margin-bottom:6px; }
+.section .tip { background:var(--gold-l); padding:14px 18px; border-radius:10px; color:#5a4a1a; font-size:13.5px; margin:14px 0; border-left:4px solid var(--gold); }
+.section .info { background:var(--blue-l); padding:14px 18px; border-radius:10px; color:#28457a; font-size:13.5px; margin:14px 0; border-left:4px solid var(--blue); }
+.section .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0; }
+.section .card { background:#f9fafd; border-radius:10px; padding:16px; border-left:3px solid var(--gold); }
+.section .card h4 { color:var(--navy); font-size:15px; margin-bottom:6px; }
+.section .card p { font-size:13px; color:var(--grey); margin:0; }
+
+.section table { width:100%; border-collapse:collapse; margin:14px 0; }
+.section th { background:var(--navy); color:#fff; padding:10px 14px; text-align:left; font-size:13px; font-weight:600; }
+.section th:first-child { border-radius:8px 0 0 8px; }
+.section th:last-child { border-radius:0 8px 8px 0; }
+.section td { padding:11px 14px; font-size:13.5px; color:#333; border-bottom:1px solid #eef1f7; }
+.section tr:hover td { background:#f9fafd; }
+
+.faq-item { border-bottom:1px solid #eef1f7; padding:14px 0; cursor:pointer; }
+.faq-q { color:var(--navy); font-weight:600; font-size:14.5px; display:flex; justify-content:space-between; align-items:center; }
+.faq-q::after { content:"+"; color:var(--gold); font-size:24px; font-weight:300; transition:transform .2s ease; }
+.faq-item.open .faq-q::after { transform:rotate(45deg); }
+.faq-a { color:#333; font-size:14px; line-height:1.6; margin-top:10px; display:none; padding-right:30px; }
+.faq-item.open .faq-a { display:block; }
+
+.contact-card { background:linear-gradient(135deg,var(--navy),var(--navy-d)); color:#fff; padding:26px; border-radius:14px; display:flex; gap:22px; align-items:center; flex-wrap:wrap; }
+.contact-card .avatar { width:80px; height:80px; border-radius:50%; background:var(--gold); display:grid; place-items:center; color:var(--navy); font-family:'Playfair Display',serif; font-size:32px; font-weight:700; }
+.contact-card .info { flex:1; min-width:200px; }
+.contact-card h3 { color:#fff; font-family:'Playfair Display',serif; font-size:24px; border:none; margin:0 0 4px; padding:0; }
+.contact-card .role { color:var(--gold-l); font-size:14px; margin-bottom:12px; }
+.contact-card .details { display:flex; flex-direction:column; gap:6px; font-size:13.5px; color:var(--gold-l); }
+.contact-card .details b { color:#fff; }
+
+.no-results { text-align:center; padding:40px; color:var(--grey); font-size:15px; }
+.no-results b { color:var(--navy); }
+
+footer { max-width:1200px; margin:32px auto 0; text-align:center; color:#8a93a3; font-size:12.5px; }
+footer b { color:var(--navy); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="head">
+    <div>
+      <div class="kicker">LASCO CORPORATION · Espace employé</div>
+      <h1>Espace RH</h1>
+      <p class="sub">Vos avantages, vos politiques, vos ressources — tout ce qu'il faut savoir en un endroit</p>
+    </div>
+    <div class="search">
+      <input type="text" id="search" placeholder="Rechercher..." oninput="doSearch()">
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="on" data-tab="avantages" onclick="showTab('avantages',event)">💼 Avantages sociaux</button>
+    <button data-tab="politiques" onclick="showTab('politiques',event)">📋 Politiques</button>
+    <button data-tab="conges" onclick="showTab('conges',event)">🌴 Congés</button>
+    <button data-tab="developpement" onclick="showTab('developpement',event)">📈 Développement</button>
+    <button data-tab="formulaires" onclick="showTab('formulaires',event)">📄 Formulaires</button>
+    <button data-tab="contact" onclick="showTab('contact',event)">❓ Contact RH</button>
+  </div>
+
+  <div class="panel">
+
+    <!-- 1. AVANTAGES SOCIAUX -->
+    <div class="section on" id="avantages">
+      <div class="panel-head">
+        <h2>💼 Vos avantages sociaux</h2>
+        <p>Le programme d'avantages Lasco couvre votre santé, votre retraite et votre bien-être au quotidien.</p>
+      </div>
+
+      <h3>Assurance collective</h3>
+      <p>Tous les employés permanents à temps plein sont automatiquement inscrits à l'assurance collective Lasco dès leur premier jour de travail. Le programme couvre :</p>
+      <ul>
+        <li><b>Soins médicaux</b> — médicaments, physiothérapie, psychologie, massothérapie (remboursement jusqu'à 80 %)</li>
+        <li><b>Soins dentaires</b> — préventifs et de base couverts à 100 %, majeurs à 50 %</li>
+        <li><b>Assurance vie</b> — 2 fois le salaire annuel</li>
+        <li><b>Invalidité de longue durée</b> — 66 % du salaire à partir du 4e mois</li>
+      </ul>
+      <div class="tip">💡 <b>À retenir :</b> Vos cartes d'assurance sont remises lors de la journée d'accueil. Pour un remplacement, contactez Marie Colombe.</div>
+
+      <h3>REER collectif Lasco</h3>
+      <p>Après 3 mois d'ancienneté, vous êtes éligible au régime d'épargne-retraite collectif. Lasco verse une <b>contribution équivalente à 100 %</b> de votre cotisation, jusqu'à <b>5 % de votre salaire brut</b>.</p>
+      <div class="info">💰 <b>Exemple concret :</b> Sur un salaire de 60 000 $/an, si vous cotisez 5 % (3 000 $), Lasco verse 3 000 $ supplémentaires — soit 6 000 $ épargnés pour votre retraite.</div>
+
+      <h3>Autres avantages</h3>
+      <div class="grid">
+        <div class="card"><h4>🚗 Kilométrage</h4><p>Remboursement des déplacements professionnels au tarif fédéral en vigueur.</p></div>
+        <div class="card"><h4>💻 Télétravail</h4><p>Jusqu'à 3 jours/semaine, selon accord avec votre gestionnaire.</p></div>
+        <div class="card"><h4>🎓 Formation continue</h4><p>Budget annuel individuel de 1 500 $ pour développement professionnel.</p></div>
+        <div class="card"><h4>🏋️ Bien-être</h4><p>Allocation santé de 500 $/an (abonnement gym, activités sportives).</p></div>
+        <div class="card"><h4>🎂 Journée d'anniversaire</h4><p>Un congé payé additionnel à prendre dans le mois de votre anniversaire.</p></div>
+        <div class="card"><h4>📱 Forfait cellulaire</h4><p>Remboursement partiel si utilisation professionnelle démontrée.</p></div>
+      </div>
+    </div>
+
+    <!-- 2. POLITIQUES -->
+    <div class="section" id="politiques">
+      <div class="panel-head">
+        <h2>📋 Politiques d'entreprise</h2>
+        <p>Le cadre commun qui définit comment nous travaillons ensemble chez Lasco.</p>
+      </div>
+
+      <h3>Code de conduite</h3>
+      <p>Chaque employé Lasco s'engage à respecter les valeurs de l'entreprise : intégrité envers les clients, respect entre collègues, discrétion sur les informations sensibles, et honnêteté dans toutes les communications.</p>
+      <p>Les manquements graves (harcèlement, fraude, divulgation non autorisée) font l'objet de mesures disciplinaires pouvant aller jusqu'au congédiement.</p>
+
+      <h3>Politique de télétravail</h3>
+      <p>Le télétravail est offert aux employés dont le rôle le permet, à hauteur de <b>3 jours par semaine maximum</b>. Chaque employé s'engage à :</p>
+      <ul>
+        <li>Disposer d'un espace de travail adéquat et sécurisé</li>
+        <li>Se connecter au VPN Lasco pour tout accès aux ressources internes</li>
+        <li>Respecter ses horaires habituels et rester joignable</li>
+        <li>Ne jamais utiliser un Wi-Fi public sans VPN pour les données Lasco</li>
+      </ul>
+
+      <h3>Politique de harcèlement et de respect</h3>
+      <p>Lasco applique une <b>tolérance zéro</b> envers toute forme de harcèlement (psychologique, sexuel, discrimination). Tout employé témoin ou victime peut s'adresser confidentiellement à Marie Colombe (RH) ou à la Direction. Une enquête indépendante sera menée dans les 5 jours ouvrables suivant tout signalement.</p>
+      <div class="tip">💡 <b>Loi 42 du Québec :</b> Depuis 2024, tous les employeurs québécois sont tenus d'avoir une politique de prévention du harcèlement psychologique et sexuel. Lasco Corporation se conforme à cette obligation.</div>
+
+      <h3>Diversité, équité et inclusion (DEI)</h3>
+      <p>Lasco recrute, évalue et promeut sur la base des compétences, sans distinction de genre, d'origine, de religion, d'orientation sexuelle, ou de handicap. Nos processus d'embauche sont revus annuellement pour éliminer tout biais implicite.</p>
+
+      <h3>Protection des données personnelles</h3>
+      <p>Conformément à la Loi 25 du Québec, Lasco protège les données personnelles des employés et des clients selon des règles strictes de collecte, d'usage, de conservation et de destruction. Une formation obligatoire sur la protection des données est disponible dans le <b>Centre de formation</b>.</p>
+    </div>
+
+    <!-- 3. CONGÉS -->
+    <div class="section" id="conges">
+      <div class="panel-head">
+        <h2>🌴 Congés et absences</h2>
+        <p>Vos droits, les procédures de demande, le calendrier annuel.</p>
+      </div>
+
+      <h3>Vos droits en un coup d'œil</h3>
+      <table>
+        <thead>
+          <tr><th>Type de congé</th><th>Durée</th><th>Rémunération</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Vacances annuelles (0-4 ans)</td><td>3 semaines</td><td>Payées</td></tr>
+          <tr><td>Vacances annuelles (5+ ans)</td><td>4 semaines</td><td>Payées</td></tr>
+          <tr><td>Congés maladie</td><td>10 jours/an</td><td>Payés</td></tr>
+          <tr><td>Congés personnels (mobiles)</td><td>3 jours/an</td><td>Payés</td></tr>
+          <tr><td>Congé d'anniversaire</td><td>1 jour</td><td>Payé</td></tr>
+          <tr><td>Congé de maternité</td><td>18 semaines</td><td>RQAP</td></tr>
+          <tr><td>Congé de paternité</td><td>5 semaines</td><td>RQAP</td></tr>
+          <tr><td>Congé parental</td><td>Jusqu'à 32 semaines</td><td>RQAP</td></tr>
+          <tr><td>Congé pour décès (proche parent)</td><td>5 jours</td><td>Payé</td></tr>
+        </tbody>
+      </table>
+
+      <h3>Jours fériés Lasco 2026</h3>
+      <p>Les jours fériés suivants sont chômés et payés pour tous les employés :</p>
+      <div class="grid">
+        <div class="card"><h4>1er janvier</h4><p>Jour de l'An</p></div>
+        <div class="card"><h4>3 avril</h4><p>Vendredi saint</p></div>
+        <div class="card"><h4>6 avril</h4><p>Lundi de Pâques</p></div>
+        <div class="card"><h4>18 mai</h4><p>Journée nationale des patriotes</p></div>
+        <div class="card"><h4>24 juin</h4><p>Fête nationale du Québec</p></div>
+        <div class="card"><h4>1er juillet</h4><p>Fête du Canada</p></div>
+        <div class="card"><h4>7 septembre</h4><p>Fête du Travail</p></div>
+        <div class="card"><h4>12 octobre</h4><p>Action de grâces</p></div>
+        <div class="card"><h4>25 décembre</h4><p>Noël</p></div>
+        <div class="card"><h4>26 décembre</h4><p>Lendemain de Noël (offert Lasco)</p></div>
+      </div>
+
+      <h3>Comment demander un congé</h3>
+      <ul>
+        <li>Vacances annuelles : demande dans Outlook au moins <b>2 semaines à l'avance</b>, validation par votre gestionnaire</li>
+        <li>Congé maladie : prévenir votre gestionnaire dès le matin même</li>
+        <li>Absence prolongée (plus de 3 jours) : un certificat médical est requis</li>
+        <li>Congé de maternité/paternité/parental : rencontre avec Marie Colombe au moins <b>2 mois avant</b> la date prévue</li>
+      </ul>
+      <div class="info">📅 <b>Astuce :</b> Le calendrier partagé de votre département dans Outlook permet de voir en un coup d'œil qui est absent quand — pratique pour planifier vos propres congés.</div>
+    </div>
+
+    <!-- 4. DÉVELOPPEMENT -->
+    <div class="section" id="developpement">
+      <div class="panel-head">
+        <h2>📈 Développement professionnel</h2>
+        <p>Votre progression chez Lasco : évaluations, formations, mobilité interne.</p>
+      </div>
+
+      <h3>Évaluations annuelles</h3>
+      <p>Chaque employé bénéficie de <b>deux entretiens formels par an</b> avec son gestionnaire :</p>
+      <ul>
+        <li><b>Entretien de mi-année</b> (juin) : point d'étape, ajustement des objectifs, identification des besoins de formation</li>
+        <li><b>Entretien annuel</b> (décembre) : bilan de l'année, définition des objectifs de l'année suivante, discussion salariale</li>
+      </ul>
+      <p>Ces entretiens sont l'occasion de faire remonter vos aspirations de carrière, de discuter de mobilité interne et de planifier votre développement.</p>
+
+      <h3>Formation continue</h3>
+      <p>Vous disposez d'un <b>budget annuel de formation de 1 500 $</b> pour développer vos compétences. Ce budget peut couvrir :</p>
+      <ul>
+        <li>Formations en ligne (certifications professionnelles, cours universitaires)</li>
+        <li>Conférences et séminaires de votre domaine</li>
+        <li>Achat de livres professionnels</li>
+        <li>Coaching ou mentorat externe</li>
+      </ul>
+      <div class="tip">🎓 <b>À faire :</b> Consultez le <b>Centre de formation Lasco</b> pour les modules internes obligatoires (Cybersécurité, RGPD, Onboarding) — accessibles à tous et gratuits.</div>
+
+      <h3>Mobilité interne</h3>
+      <p>Lasco privilégie les candidatures internes pour ses postes vacants. Chaque nouveau poste est publié pendant 10 jours ouvrables sur cet intranet avant d'être ouvert à l'externe. Si vous êtes intéressé par un poste :</p>
+      <ul>
+        <li>Informez votre gestionnaire de votre candidature</li>
+        <li>Transmettez votre CV mis à jour à Marie Colombe</li>
+        <li>Un entretien est organisé dans les 5 jours ouvrables</li>
+      </ul>
+
+      <h3>Parcours de carrière chez Lasco</h3>
+      <p>Chaque département offre des trajectoires de progression : au Service Client, un agent peut évoluer vers un rôle de Responsable ; en Comptabilité, un analyste peut viser un poste de Contrôleur ; à l'Informatique, un stagiaire peut évoluer vers Administrateur systèmes puis Architecte cloud. Ces parcours sont discutés lors des entretiens annuels.</p>
+    </div>
+
+    <!-- 5. FORMULAIRES -->
+    <div class="section" id="formulaires">
+      <div class="panel-head">
+        <h2>📄 Formulaires et procédures</h2>
+        <p>Les documents dont vous aurez besoin au cours de votre carrière Lasco.</p>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <h4>📋 Demande de congés</h4>
+          <p>Formulaire à remplir et à envoyer à votre gestionnaire pour validation.</p>
+        </div>
+        <div class="card">
+          <h4>🏠 Changement d'adresse</h4>
+          <p>À transmettre à Marie Colombe pour la mise à jour de vos coordonnées et de l'assurance collective.</p>
+        </div>
+        <div class="card">
+          <h4>💳 Changement bancaire</h4>
+          <p>Pour modifier le compte de dépôt de votre paie — un spécimen de chèque est requis.</p>
+        </div>
+        <div class="card">
+          <h4>🤒 Déclaration d'absence</h4>
+          <p>Pour toute absence maladie de plus de 3 jours, joindre un certificat médical.</p>
+        </div>
+        <div class="card">
+          <h4>💼 Demande de télétravail</h4>
+          <p>Formalisation d'un accord de télétravail régulier avec votre gestionnaire.</p>
+        </div>
+        <div class="card">
+          <h4>🎓 Demande de formation</h4>
+          <p>Pour utiliser votre budget formation annuel (préciser la formation et son coût).</p>
+        </div>
+        <div class="card">
+          <h4>🚗 Remboursement kilométrique</h4>
+          <p>Feuille de suivi des déplacements professionnels — à soumettre mensuellement.</p>
+        </div>
+        <div class="card">
+          <h4>👨‍👩‍👧 Bénéficiaires assurance</h4>
+          <p>Désignation ou mise à jour des bénéficiaires de votre assurance vie collective.</p>
+        </div>
+        <div class="card">
+          <h4>📝 Feedback 360°</h4>
+          <p>Formulaire d'évaluation multi-source utilisé lors des entretiens annuels.</p>
+        </div>
+      </div>
+      <div class="info">📥 <b>Où trouver les formulaires ?</b> Tous les formulaires officiels sont disponibles sur le site SharePoint RH, dans la bibliothèque « Formulaires ». Pour toute question sur leur utilisation, contactez Marie Colombe.</div>
+    </div>
+
+    <!-- 6. CONTACT -->
+    <div class="section" id="contact">
+      <div class="panel-head">
+        <h2>❓ Contact RH</h2>
+        <p>Votre interlocutrice RH est là pour répondre à toutes vos questions.</p>
+      </div>
+
+      <div class="contact-card">
+        <div class="avatar">MC</div>
+        <div class="info">
+          <h3>Marie Colombe</h3>
+          <div class="role">Responsable Ressources Humaines</div>
+          <div class="details">
+            <div><b>📧</b> m.colombe@lascocorp.com</div>
+            <div><b>📞</b> Poste interne 205</div>
+            <div><b>📅</b> Prise de rendez-vous via Outlook</div>
+            <div><b>🕐</b> Lun-Ven, 9h-17h</div>
+          </div>
+        </div>
+      </div>
+
+      <h3>Questions fréquentes</h3>
+
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Comment puis-je consulter mes talons de paie ?</div>
+        <div class="faq-a">Vos talons de paie sont déposés chaque quinzaine dans votre OneDrive personnel, dans le dossier « Paie ». Ils sont également accessibles en version papier sur demande auprès de Marie Colombe.</div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Combien de jours de vacances ai-je à ma disposition ?</div>
+        <div class="faq-a">Cela dépend de votre ancienneté : 3 semaines pour 0-4 ans d'ancienneté, 4 semaines à partir de 5 ans. Votre solde exact est disponible sur votre dernier talon de paie et peut être confirmé par Marie Colombe.</div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Comment ajouter un enfant à mon assurance collective ?</div>
+        <div class="faq-a">Un événement de vie (naissance, adoption, mariage) doit être déclaré à Marie Colombe dans les 30 jours pour ajouter un dépendant à votre assurance. Le formulaire à utiliser est disponible dans la section Formulaires.</div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Je pense être victime de harcèlement au travail. Que faire ?</div>
+        <div class="faq-a">Prenez contact <b>en toute confidentialité</b> avec Marie Colombe (ou avec la Direction si le sujet la concerne). Une enquête indépendante est ouverte dans les 5 jours ouvrables suivant votre signalement, et vous êtes protégé contre toute forme de représailles.</div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Est-ce que je peux changer de département en interne ?</div>
+        <div class="faq-a">Absolument — la mobilité interne est encouragée. Discutez d'abord de vos aspirations avec votre gestionnaire actuel, puis avec Marie Colombe. Chaque poste vacant est publié en interne 10 jours ouvrables avant d'être ouvert à l'externe.</div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Mon poste de travail présente un problème ergonomique. Que faire ?</div>
+        <div class="faq-a">Signalez-le à Marie Colombe : un ergothérapeute peut être mandaté pour évaluer votre poste, et Lasco prend en charge les équipements adaptés recommandés (chaise ergonomique, écran surélevé, souris verticale, etc.).</div>
+      </div>
+
+      <div class="faq-item" onclick="this.classList.toggle('open')">
+        <div class="faq-q">Comment demander une avance sur salaire ?</div>
+        <div class="faq-a">Les avances sur salaire sont accordées au cas par cas pour des situations exceptionnelles. Adressez une demande écrite à Marie Colombe expliquant votre situation ; une réponse vous est donnée sous 3 jours ouvrables.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="no-results" id="noResults" style="display:none">
+    <b>Aucun résultat</b><br>
+    Aucune information ne correspond à votre recherche. Essayez un autre terme ou parcourez les sections.
+  </div>
+</div>
+
+<footer><b>LASCO CORPORATION</b> — Espace RH · Confidentiel employés · Contact : m.colombe@lascocorp.com</footer>
+
+<script>
+function showTab(id, evt) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('on'));
+  evt.target.classList.add('on');
+  document.getElementById('search').value = '';
+  document.getElementById('noResults').style.display = 'none';
+  document.querySelectorAll('.section .card, .section .faq-item, .section h3, .section p, .section ul, .section table, .section .contact-card').forEach(el => el.style.display = '');
+}
+
+function doSearch() {
+  const q = document.getElementById('search').value.trim().toLowerCase();
+  if (!q) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('on'));
+    document.querySelector('.tabs button.on').click();
+    return;
+  }
+  // Recherche : afficher toutes les sections et masquer ce qui ne correspond pas
+  document.querySelectorAll('.section').forEach(s => s.classList.add('on'));
+  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('on'));
+
+  let anyMatch = false;
+  document.querySelectorAll('.section').forEach(sec => {
+    let sectionHasMatch = false;
+    sec.querySelectorAll('h3, p, li, .card, .faq-item, td, .contact-card').forEach(el => {
+      const t = el.textContent.toLowerCase();
+      if (t.includes(q)) { el.style.display = ''; sectionHasMatch = true; anyMatch = true; }
+      else { el.style.display = 'none'; }
+    });
+    // Les tableaux : montrer si au moins une ligne matche
+    sec.querySelectorAll('table').forEach(tbl => {
+      const rows = tbl.querySelectorAll('tbody tr');
+      let anyRow = false;
+      rows.forEach(r => {
+        if (r.textContent.toLowerCase().includes(q)) { r.style.display = ''; anyRow = true; }
+        else { r.style.display = 'none'; }
+      });
+      tbl.style.display = anyRow ? '' : 'none';
+      if (anyRow) sectionHasMatch = true;
+    });
+  });
+  document.getElementById('noResults').style.display = anyMatch ? 'none' : 'block';
+}
+</script>
+</body>
+</html>
