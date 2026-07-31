@@ -1,113 +1,239 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr-CA">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guichet RH — Lasco Corporation</title>
-<meta name="robots" content="noindex">
+<meta name="description" content="Guichet RH de Lasco Corporation : avantages sociaux, politiques d'entreprise, congés, développement professionnel et dépôt de demandes.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#1f3864">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231f3864'/><text x='16' y='24' font-family='Georgia,serif' font-size='21' font-weight='700' fill='%23c69b2e' text-anchor='middle'>L</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --navy:#1f3864; --navy-d:#162848; --gold:#c69b2e; --gold-l:#f3e4be;
+  --navy:#1f3864; --navy-d:#162848; --gold:#c69b2e; --gold-l:#f3e4be; --gold-dk:#7a5f14;
   --green:#3f7d3f; --green-l:#e7f0e7;
   --blue:#2e5496; --blue-l:#e3ebf7;
-  --grey:#5a6270; --bg:#f4f6fb;
+  --grey:#4e5666; --line:#e6eaf3; --bg:#f4f6fb;
 }
-* { margin:0; padding:0; box-sizing:border-box; font-family:'Inter',sans-serif; }
-body { background:linear-gradient(160deg,var(--bg),#dde4f2); min-height:100vh; padding:32px 16px; color:#222; }
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  background:linear-gradient(160deg,var(--bg),#dde4f2);
+  background-attachment:fixed;
+  min-height:100vh; padding:32px 16px; color:#222;
+}
 .wrap { max-width:1200px; margin:0 auto; }
 
-.head { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:16px; margin-bottom:22px; }
-.kicker { color:var(--gold); font-weight:700; font-size:11px; letter-spacing:3px; text-transform:uppercase; margin-bottom:4px; }
-h1 { font-family:'Playfair Display',serif; color:var(--navy); font-size:clamp(26px,3.5vw,38px); }
-.sub { color:var(--grey); font-size:14px; margin-top:4px; }
-.search { position:relative; }
-.search input { padding:11px 16px 11px 42px; border:2px solid #d7deeb; border-radius:24px; font-size:14px; width:280px; background:#fff; }
-.search input:focus { outline:none; border-color:var(--gold); }
-.search::before { content:"🔍"; position:absolute; left:14px; top:50%; transform:translateY(-50%); font-size:15px; }
+/* --- Accessibilité --- */
+.sr-only {
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
+.skip {
+  position:absolute; left:-9999px; top:0; z-index:100;
+  background:var(--navy); color:#fff; padding:12px 20px;
+  border-radius:0 0 10px 0; font-size:14px; font-weight:600; text-decoration:none;
+}
+.skip:focus { left:0; }
+:focus-visible { outline:3px solid var(--gold); outline-offset:2px; border-radius:4px; }
 
-.tabs { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:22px; background:#fff; padding:8px; border-radius:14px; box-shadow:0 4px 14px rgba(31,56,100,.06); }
-.tabs button { padding:12px 18px; border:none; background:transparent; color:var(--grey); border-radius:10px; font-size:13.5px; font-weight:600; cursor:pointer; display:flex; align-items:center; gap:8px; transition:all .15s ease; }
+/* --- En-tête --- */
+.head { display:flex; align-items:flex-end; justify-content:space-between; flex-wrap:wrap; gap:18px; margin-bottom:22px; }
+.head-txt { min-width:260px; flex:1; }
+.kicker { color:var(--gold-dk); font-weight:700; font-size:11px; letter-spacing:3px; text-transform:uppercase; margin-bottom:5px; }
+h1 { font-family:'Playfair Display',Georgia,serif; color:var(--navy); font-size:clamp(28px,3.6vw,40px); line-height:1.15; }
+.sub { color:var(--grey); font-size:14.5px; margin-top:6px; max-width:56ch; line-height:1.55; }
+.head-tools { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+
+.search { position:relative; flex:1; min-width:220px; }
+.search input {
+  width:100%; padding:12px 40px 12px 44px; border:2px solid #d7deeb; border-radius:24px;
+  font-size:14px; font-family:inherit; background:#fff; color:#222;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%235a6270' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-4-4'/%3E%3C/svg%3E");
+  background-repeat:no-repeat; background-position:14px center; background-size:18px;
+}
+.search input:focus { outline:none; border-color:var(--gold); box-shadow:0 0 0 3px rgba(198,155,46,.18); }
+.search-clear {
+  position:absolute; right:8px; top:50%; transform:translateY(-50%);
+  width:28px; height:28px; border:none; background:transparent; color:var(--grey);
+  font-size:20px; line-height:1; cursor:pointer; border-radius:50%; display:none;
+}
+.search-clear:hover { background:#eef1f7; color:var(--navy); }
+.search.filled .search-clear { display:block; }
+
+.btn-ghost {
+  padding:11px 16px; border:2px solid #d7deeb; background:#fff; color:var(--navy);
+  border-radius:24px; font-size:13.5px; font-weight:600; font-family:inherit;
+  cursor:pointer; white-space:nowrap; transition:border-color .15s ease,background .15s ease;
+}
+.btn-ghost:hover { border-color:var(--gold); background:#fffdf7; }
+
+/* --- Onglets --- */
+.tabs {
+  display:flex; gap:6px; margin-bottom:22px; background:#fff; padding:8px;
+  border-radius:14px; box-shadow:0 4px 14px rgba(31,56,100,.06);
+  overflow-x:auto; scrollbar-width:thin;
+}
+.tabs button {
+  padding:12px 18px; border:none; background:transparent; color:var(--grey);
+  border-radius:10px; font-size:13.5px; font-weight:600; font-family:inherit;
+  cursor:pointer; display:flex; align-items:center; gap:8px; white-space:nowrap;
+  transition:background .15s ease,color .15s ease;
+}
 .tabs button:hover { color:var(--navy); background:#f4f6fb; }
-.tabs button.on { background:var(--navy); color:#fff; }
+.tabs button[aria-selected="true"] { background:var(--navy); color:#fff; }
 
-.panel { background:#fff; border-radius:16px; padding:32px; box-shadow:0 8px 26px rgba(31,56,100,.10); }
+/* --- Panneau --- */
+.panel { background:#fff; border-radius:16px; padding:clamp(20px,3vw,32px); box-shadow:0 8px 26px rgba(31,56,100,.10); }
 .panel-head { padding-bottom:18px; margin-bottom:22px; border-bottom:2px solid var(--gold-l); }
-.panel-head h2 { color:var(--navy); font-family:'Playfair Display',serif; font-size:26px; }
+.panel-head h2 { color:var(--navy); font-family:'Playfair Display',Georgia,serif; font-size:clamp(21px,2.6vw,26px); }
 .panel-head p { color:var(--grey); font-size:14px; margin-top:6px; }
 
 .section { display:none; }
 .section.on { display:block; }
-.section h3 { color:var(--navy); font-family:'Playfair Display',serif; font-size:19px; margin:24px 0 10px; padding-bottom:6px; border-bottom:1px solid #eef1f7; }
-.section h3:first-child { margin-top:0; }
-.section p { color:#333; font-size:14.5px; line-height:1.65; margin-bottom:10px; }
-.section ul { padding-left:22px; margin:8px 0; }
-.section ul li { color:#333; font-size:14.5px; line-height:1.65; margin-bottom:6px; }
-.section .tip { background:var(--gold-l); padding:14px 18px; border-radius:10px; color:#5a4a1a; font-size:13.5px; margin:14px 0; border-left:4px solid var(--gold); }
-.section .info { background:var(--blue-l); padding:14px 18px; border-radius:10px; color:#28457a; font-size:13.5px; margin:14px 0; border-left:4px solid var(--blue); }
-.section .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0; }
-.section .card { background:#f9fafd; border-radius:10px; padding:16px; border-left:3px solid var(--gold); }
-.section .card h4 { color:var(--navy); font-size:15px; margin-bottom:6px; }
-.section .card p { font-size:13px; color:var(--grey); margin:0; }
 
-.section table { width:100%; border-collapse:collapse; margin:14px 0; }
-.section th { background:var(--navy); color:#fff; padding:10px 14px; text-align:left; font-size:13px; font-weight:600; }
-.section th:first-child { border-radius:8px 0 0 8px; }
-.section th:last-child { border-radius:0 8px 8px 0; }
-.section td { padding:11px 14px; font-size:13.5px; color:#333; border-bottom:1px solid #eef1f7; }
-.section tr:hover td { background:#f9fafd; }
+/* --- Typographie de contenu (partagée panneau + résultats) --- */
+.rich h3 { color:var(--navy); font-family:'Playfair Display',Georgia,serif; font-size:19px; margin:26px 0 10px; padding-bottom:6px; border-bottom:1px solid var(--line); }
+.rich h3:first-child { margin-top:0; }
+.rich p { color:#333; font-size:14.5px; line-height:1.65; margin-bottom:10px; }
+.rich ul { padding-left:22px; margin:8px 0; }
+.rich ul li { color:#333; font-size:14.5px; line-height:1.65; margin-bottom:6px; }
+.rich .tip { background:var(--gold-l); padding:14px 18px; border-radius:10px; color:#5a4a1a; font-size:13.5px; line-height:1.6; margin:14px 0; border-left:4px solid var(--gold); }
+.rich .info { background:var(--blue-l); padding:14px 18px; border-radius:10px; color:#28457a; font-size:13.5px; line-height:1.6; margin:14px 0; border-left:4px solid var(--blue); }
+.rich .legal { background:var(--green-l); padding:14px 18px; border-radius:10px; color:#2c5a2c; font-size:13.5px; line-height:1.6; margin:14px 0; border-left:4px solid var(--green); }
+.rich .grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin:14px 0; }
+.rich .card { background:#f9fafd; border-radius:10px; padding:16px; border-left:3px solid var(--gold); display:flex; flex-direction:column; }
+.rich .card h4 { color:var(--navy); font-size:15px; margin-bottom:6px; }
+.rich .card p { font-size:13px; color:var(--grey); margin:0; }
+.rich .card .bonus { display:inline-block; margin-top:8px; background:var(--gold-l); color:var(--gold-dk); font-size:11px; font-weight:700; letter-spacing:.6px; text-transform:uppercase; padding:3px 8px; border-radius:20px; align-self:flex-start; }
 
-.faq-item { border-bottom:1px solid #eef1f7; padding:14px 0; cursor:pointer; }
-.faq-q { color:var(--navy); font-weight:600; font-size:14.5px; display:flex; justify-content:space-between; align-items:center; }
-.faq-q::after { content:"+"; color:var(--gold); font-size:24px; font-weight:300; transition:transform .2s ease; }
-.faq-item.open .faq-q::after { transform:rotate(45deg); }
-.faq-a { color:#333; font-size:14px; line-height:1.6; margin-top:10px; display:none; padding-right:30px; }
-.faq-item.open .faq-a { display:block; }
+.rich .table-scroll { overflow-x:auto; margin:14px 0; }
+.rich table { width:100%; border-collapse:collapse; min-width:480px; }
+.rich th { background:var(--navy); color:#fff; padding:10px 14px; text-align:left; font-size:13px; font-weight:600; }
+.rich th:first-child { border-radius:8px 0 0 8px; }
+.rich th:last-child { border-radius:0 8px 8px 0; }
+.rich td { padding:11px 14px; font-size:13.5px; color:#333; border-bottom:1px solid var(--line); }
+.rich tbody tr:hover td { background:#f9fafd; }
+.rich td .plus { color:var(--gold-dk); font-weight:700; }
 
+/* --- Catalogue de demandes --- */
+.rich .card.svc { border-left-color:var(--navy); }
+.rich .card.svc .ref { font-size:11px; font-weight:700; letter-spacing:1px; color:var(--gold-dk); margin-bottom:6px; }
+.rich .card.svc p { flex:1; }
+.svc-btn {
+  display:inline-block; margin-top:12px; padding:9px 14px; background:var(--navy); color:#fff;
+  border-radius:8px; font-size:12.5px; font-weight:600; text-decoration:none; text-align:center;
+  transition:background .15s ease;
+}
+.svc-btn:hover { background:var(--gold); color:var(--navy-d); }
+
+/* --- FAQ --- */
+.faq-item { border-bottom:1px solid var(--line); }
+.faq-q {
+  width:100%; text-align:left; background:none; border:none; cursor:pointer;
+  color:var(--navy); font-weight:600; font-size:14.5px; font-family:inherit;
+  padding:16px 36px 16px 0; position:relative; line-height:1.5;
+}
+.faq-q::after {
+  content:"+"; position:absolute; right:6px; top:50%; transform:translateY(-50%);
+  color:var(--gold); font-size:26px; font-weight:300; transition:transform .2s ease;
+}
+.faq-q[aria-expanded="true"]::after { transform:translateY(-50%) rotate(45deg); }
+.faq-q:disabled { color:var(--navy); opacity:1; cursor:default; }
+.faq-a { color:#333; font-size:14px; line-height:1.65; padding:0 40px 18px 0; }
+.faq-a[hidden] { display:none; }
+
+/* --- Contact --- */
 .contact-card { background:linear-gradient(135deg,var(--navy),var(--navy-d)); color:#fff; padding:26px; border-radius:14px; display:flex; gap:22px; align-items:center; flex-wrap:wrap; }
-.contact-card .avatar { width:80px; height:80px; border-radius:50%; background:var(--gold); display:grid; place-items:center; color:var(--navy); font-family:'Playfair Display',serif; font-size:32px; font-weight:700; }
-.contact-card .info { flex:1; min-width:200px; }
-.contact-card h3 { color:#fff; font-family:'Playfair Display',serif; font-size:24px; border:none; margin:0 0 4px; padding:0; }
+.contact-card .avatar { width:80px; height:80px; border-radius:50%; background:var(--gold); display:grid; place-items:center; color:var(--navy); font-family:'Playfair Display',Georgia,serif; font-size:32px; font-weight:700; flex-shrink:0; }
+.contact-card .who { flex:1; min-width:200px; }
+.contact-card h3 { color:#fff; font-family:'Playfair Display',Georgia,serif; font-size:24px; border:none; margin:0 0 4px; padding:0; }
 .contact-card .role { color:var(--gold-l); font-size:14px; margin-bottom:12px; }
-.contact-card .details { display:flex; flex-direction:column; gap:6px; font-size:13.5px; color:var(--gold-l); }
-.contact-card .details b { color:#fff; }
+.contact-card .details { display:flex; flex-direction:column; gap:7px; font-size:13.5px; color:var(--gold-l); }
+.contact-card .details a { color:#fff; text-decoration:underline; text-underline-offset:3px; }
 
-.no-results { text-align:center; padding:40px; color:var(--grey); font-size:15px; }
-.no-results b { color:var(--navy); }
+/* --- Résultats de recherche --- */
+.res { border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin-bottom:14px; }
+.rich .res-crumb { font-size:11.5px; font-weight:700; letter-spacing:1.2px; text-transform:uppercase; color:var(--gold-dk); margin-bottom:10px; line-height:1.4; }
+.rich .res-crumb span { color:var(--grey); font-weight:600; }
+.res-go {
+  margin-top:12px; padding:7px 14px; background:#fff; border:1.5px solid var(--navy); color:var(--navy);
+  border-radius:20px; font-size:12.5px; font-weight:600; font-family:inherit; cursor:pointer;
+}
+.res-go:hover { background:var(--navy); color:#fff; }
+mark { background:var(--gold-l); color:#5a4a1a; padding:1px 2px; border-radius:3px; font-weight:600; }
+.no-results { text-align:center; padding:34px 20px; color:var(--grey); font-size:15px; line-height:1.6; }
+.no-results b { color:var(--navy); display:block; font-size:17px; margin-bottom:6px; }
 
-footer { max-width:1200px; margin:32px auto 0; text-align:center; color:#8a93a3; font-size:12.5px; }
+footer { max-width:1200px; margin:30px auto 0; text-align:center; color:#8a93a3; font-size:12.5px; line-height:1.8; }
 footer b { color:var(--navy); }
+footer .gov { display:block; margin-top:4px; font-size:11.5px; color:#9aa3b3; }
+
+@media (max-width:640px) {
+  body { padding:20px 12px; }
+  .head { align-items:stretch; }
+  .head-tools { width:100%; }
+  .tabs button { padding:11px 14px; font-size:13px; }
+  .contact-card { padding:20px; }
+}
+@media (prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  * { transition:none !important; }
+}
+@media print {
+  body { background:#fff; padding:0; color:#000; }
+  .skip, .head-tools, .tabs, .res-go, .svc-btn, #resultsPanel, footer .gov { display:none !important; }
+  .panel { box-shadow:none; border-radius:0; padding:0; }
+  .section { display:block !important; page-break-before:always; }
+  .section:first-of-type { page-break-before:auto; }
+  .rich h3, .rich .card, .rich .faq-item, .rich table { page-break-inside:avoid; }
+  .faq-a[hidden] { display:block !important; }
+  .rich th { background:#1f3864 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+}
 </style>
 </head>
 <body>
 
+<a class="skip" href="#main">Aller au contenu principal</a>
+
 <div class="wrap">
-  <div class="head">
-    <div>
-      <div class="kicker">LASCO CORPORATION · Espace employé</div>
-      <h1>Espace RH</h1>
-      <p class="sub">Vos avantages, vos politiques, vos ressources — tout ce qu'il faut savoir en un endroit</p>
+  <header class="head">
+    <div class="head-txt">
+      <p class="kicker">Lasco Corporation · Intranet employé</p>
+      <h1>Guichet RH</h1>
+      <p class="sub">Le point d'entrée unique pour vos avantages, vos politiques et vos démarches auprès des Ressources humaines.</p>
     </div>
-    <div class="search">
-      <input type="text" id="search" placeholder="Rechercher..." oninput="doSearch()">
+    <div class="head-tools">
+      <div class="search" id="searchWrap">
+        <label class="sr-only" for="search">Rechercher dans le Guichet RH</label>
+        <input type="search" id="search" placeholder="Rechercher : vacances, REER, télétravail…" autocomplete="off">
+        <button type="button" class="search-clear" id="searchClear" aria-label="Effacer la recherche">×</button>
+      </div>
+      <button type="button" class="btn-ghost" id="printBtn">Imprimer</button>
     </div>
+  </header>
+
+  <div class="tabs" role="tablist" aria-label="Rubriques du Guichet RH">
+    <button role="tab" id="tab-avantages" aria-controls="avantages" aria-selected="true" tabindex="0" data-tab="avantages" data-label="Avantages sociaux"><span aria-hidden="true">💼</span> Avantages sociaux</button>
+    <button role="tab" id="tab-politiques" aria-controls="politiques" aria-selected="false" tabindex="-1" data-tab="politiques" data-label="Politiques"><span aria-hidden="true">📋</span> Politiques</button>
+    <button role="tab" id="tab-conges" aria-controls="conges" aria-selected="false" tabindex="-1" data-tab="conges" data-label="Congés"><span aria-hidden="true">🌴</span> Congés</button>
+    <button role="tab" id="tab-developpement" aria-controls="developpement" aria-selected="false" tabindex="-1" data-tab="developpement" data-label="Développement"><span aria-hidden="true">📈</span> Développement</button>
+    <button role="tab" id="tab-formulaires" aria-controls="formulaires" aria-selected="false" tabindex="-1" data-tab="formulaires" data-label="Demandes"><span aria-hidden="true">📄</span> Demandes</button>
+    <button role="tab" id="tab-contact" aria-controls="contact" aria-selected="false" tabindex="-1" data-tab="contact" data-label="Contact RH"><span aria-hidden="true">❓</span> Contact RH</button>
   </div>
 
-  <div class="tabs">
-    <button class="on" data-tab="avantages" onclick="showTab('avantages',event)">💼 Avantages sociaux</button>
-    <button data-tab="politiques" onclick="showTab('politiques',event)">📋 Politiques</button>
-    <button data-tab="conges" onclick="showTab('conges',event)">🌴 Congés</button>
-    <button data-tab="developpement" onclick="showTab('developpement',event)">📈 Développement</button>
-    <button data-tab="formulaires" onclick="showTab('formulaires',event)">📄 Formulaires</button>
-    <button data-tab="contact" onclick="showTab('contact',event)">❓ Contact RH</button>
-  </div>
+  <main id="main">
 
-  <div class="panel">
+  <div class="panel" id="panel">
 
     <!-- 1. AVANTAGES SOCIAUX -->
-    <div class="section on" id="avantages">
+    <section class="section rich on" id="avantages" role="tabpanel" aria-labelledby="tab-avantages" tabindex="0">
       <div class="panel-head">
-        <h2>💼 Vos avantages sociaux</h2>
+        <h2>Vos avantages sociaux</h2>
         <p>Le programme d'avantages Lasco couvre votre santé, votre retraite et votre bien-être au quotidien.</p>
       </div>
 
@@ -117,29 +243,29 @@ footer b { color:var(--navy); }
         <li><b>Soins médicaux</b> — médicaments, physiothérapie, psychologie, massothérapie (remboursement jusqu'à 80 %)</li>
         <li><b>Soins dentaires</b> — préventifs et de base couverts à 100 %, majeurs à 50 %</li>
         <li><b>Assurance vie</b> — 2 fois le salaire annuel</li>
-        <li><b>Invalidité de longue durée</b> — 66 % du salaire à partir du 4e mois</li>
+        <li><b>Invalidité de longue durée</b> — 66 % du salaire à partir du 4<sup>e</sup> mois</li>
       </ul>
-      <div class="tip">💡 <b>À retenir :</b> Vos cartes d'assurance sont remises lors de la journée d'accueil. Pour un remplacement, contactez Marie Colombe.</div>
+      <div class="tip">💡 <b>À retenir :</b> vos cartes d'assurance sont remises lors de la journée d'accueil. Pour un remplacement, déposez une demande au Guichet RH auprès de Marie Colombe.</div>
 
       <h3>REER collectif Lasco</h3>
       <p>Après 3 mois d'ancienneté, vous êtes éligible au régime d'épargne-retraite collectif. Lasco verse une <b>contribution équivalente à 100 %</b> de votre cotisation, jusqu'à <b>5 % de votre salaire brut</b>.</p>
-      <div class="info">💰 <b>Exemple concret :</b> Sur un salaire de 60 000 $/an, si vous cotisez 5 % (3 000 $), Lasco verse 3 000 $ supplémentaires — soit 6 000 $ épargnés pour votre retraite.</div>
+      <div class="info">💰 <b>Exemple concret :</b> sur un salaire de 60 000 $/an, si vous cotisez 5 % (3 000 $), Lasco verse 3 000 $ supplémentaires — soit 6 000 $ épargnés pour votre retraite.</div>
 
       <h3>Autres avantages</h3>
       <div class="grid">
-        <div class="card"><h4>🚗 Kilométrage</h4><p>Remboursement des déplacements professionnels au tarif fédéral en vigueur.</p></div>
-        <div class="card"><h4>💻 Télétravail</h4><p>Jusqu'à 3 jours/semaine, selon accord avec votre gestionnaire.</p></div>
-        <div class="card"><h4>🎓 Formation continue</h4><p>Budget annuel individuel de 1 500 $ pour développement professionnel.</p></div>
-        <div class="card"><h4>🏋️ Bien-être</h4><p>Allocation santé de 500 $/an (abonnement gym, activités sportives).</p></div>
-        <div class="card"><h4>🎂 Journée d'anniversaire</h4><p>Un congé payé additionnel à prendre dans le mois de votre anniversaire.</p></div>
-        <div class="card"><h4>📱 Forfait cellulaire</h4><p>Remboursement partiel si utilisation professionnelle démontrée.</p></div>
+        <div class="card"><h4><span aria-hidden="true">🚗</span> Kilométrage</h4><p>Remboursement des déplacements professionnels au tarif de l'Agence du revenu du Canada en vigueur.</p></div>
+        <div class="card"><h4><span aria-hidden="true">💻</span> Télétravail</h4><p>Jusqu'à 3 jours par semaine, selon accord avec votre gestionnaire.</p></div>
+        <div class="card"><h4><span aria-hidden="true">🎓</span> Formation continue</h4><p>Budget annuel individuel de 1 500 $ pour votre développement professionnel.</p></div>
+        <div class="card"><h4><span aria-hidden="true">🏋️</span> Bien-être</h4><p>Allocation santé de 500 $ par an (abonnement gym, activités sportives).</p></div>
+        <div class="card"><h4><span aria-hidden="true">🎂</span> Journée d'anniversaire</h4><p>Un congé payé additionnel à prendre dans le mois de votre anniversaire.</p></div>
+        <div class="card"><h4><span aria-hidden="true">📱</span> Forfait cellulaire</h4><p>Remboursement partiel si l'utilisation professionnelle est démontrée.</p></div>
       </div>
-    </div>
+    </section>
 
     <!-- 2. POLITIQUES -->
-    <div class="section" id="politiques">
+    <section class="section rich" id="politiques" role="tabpanel" aria-labelledby="tab-politiques" tabindex="0" hidden>
       <div class="panel-head">
-        <h2>📋 Politiques d'entreprise</h2>
+        <h2>Politiques d'entreprise</h2>
         <p>Le cadre commun qui définit comment nous travaillons ensemble chez Lasco.</p>
       </div>
 
@@ -154,81 +280,90 @@ footer b { color:var(--navy); }
         <li>Se connecter au VPN Lasco pour tout accès aux ressources internes</li>
         <li>Respecter ses horaires habituels et rester joignable</li>
         <li>Ne jamais utiliser un Wi-Fi public sans VPN pour les données Lasco</li>
+        <li>Utiliser un appareil fourni par Lasco, inscrit à Intune et conforme aux stratégies de sécurité</li>
       </ul>
+      <div class="info">🔐 <b>Accès conditionnel :</b> l'accès aux ressources Microsoft 365 depuis l'extérieur du bureau exige une authentification multifacteur et un appareil conforme. Un appareil non conforme se verra refuser l'accès à SharePoint, même avec un mot de passe valide.</div>
 
       <h3>Politique de harcèlement et de respect</h3>
       <p>Lasco applique une <b>tolérance zéro</b> envers toute forme de harcèlement (psychologique, sexuel, discrimination). Tout employé témoin ou victime peut s'adresser confidentiellement à Marie Colombe (RH) ou à la Direction. Une enquête indépendante sera menée dans les 5 jours ouvrables suivant tout signalement.</p>
-      <div class="tip">💡 <b>Loi 42 du Québec :</b> Depuis 2024, tous les employeurs québécois sont tenus d'avoir une politique de prévention du harcèlement psychologique et sexuel. Lasco Corporation se conforme à cette obligation.</div>
+      <div class="legal">⚖️ <b>Cadre légal :</b> l'obligation pour tout employeur québécois de se doter d'une politique de prévention du harcèlement psychologique et sexuel découle de l'article 81.19 de la <i>Loi sur les normes du travail</i>, en vigueur depuis le 1<sup>er</sup> janvier 2019. La <b>Loi 42</b> (2024) est venue renforcer cette obligation en imposant un contenu minimal à la politique. Lasco Corporation s'y conforme intégralement.</div>
 
-      <h3>Diversité, équité et inclusion (DEI)</h3>
-      <p>Lasco recrute, évalue et promeut sur la base des compétences, sans distinction de genre, d'origine, de religion, d'orientation sexuelle, ou de handicap. Nos processus d'embauche sont revus annuellement pour éliminer tout biais implicite.</p>
+      <h3>Diversité, équité et inclusion</h3>
+      <p>Lasco recrute, évalue et promeut sur la base des compétences, sans distinction de genre, d'origine, de religion, d'orientation sexuelle ou de handicap. Nos processus d'embauche sont revus annuellement pour éliminer tout biais implicite.</p>
 
-      <h3>Protection des données personnelles</h3>
-      <p>Conformément à la Loi 25 du Québec, Lasco protège les données personnelles des employés et des clients selon des règles strictes de collecte, d'usage, de conservation et de destruction. Une formation obligatoire sur la protection des données est disponible dans le <b>Centre de formation</b>.</p>
-    </div>
+      <h3>Protection des renseignements personnels</h3>
+      <p>Conformément à la <b>Loi 25</b> du Québec (<i>Loi modernisant des dispositions législatives en matière de protection des renseignements personnels</i>), Lasco protège les renseignements personnels des employés et des clients selon des règles strictes de collecte, d'usage, de conservation et de destruction.</p>
+      <p>Toute personne peut exercer son droit d'accès et de rectification sur ses renseignements en s'adressant au Guichet RH. Une formation obligatoire sur la protection des renseignements personnels est disponible dans le <b>Centre de formation Lasco</b>.</p>
+      <div class="tip">💡 <b>En pratique :</b> ne transmettez jamais de renseignements personnels d'employés ou de clients par courriel non chiffré, ni vers un stockage externe à Lasco (clé USB personnelle, service infonuagique non approuvé).</div>
+    </section>
 
     <!-- 3. CONGÉS -->
-    <div class="section" id="conges">
+    <section class="section rich" id="conges" role="tabpanel" aria-labelledby="tab-conges" tabindex="0" hidden>
       <div class="panel-head">
-        <h2>🌴 Congés et absences</h2>
+        <h2>Congés et absences</h2>
         <p>Vos droits, les procédures de demande, le calendrier annuel.</p>
       </div>
 
       <h3>Vos droits en un coup d'œil</h3>
-      <table>
-        <thead>
-          <tr><th>Type de congé</th><th>Durée</th><th>Rémunération</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Vacances annuelles (0-4 ans)</td><td>3 semaines</td><td>Payées</td></tr>
-          <tr><td>Vacances annuelles (5+ ans)</td><td>4 semaines</td><td>Payées</td></tr>
-          <tr><td>Congés maladie</td><td>10 jours/an</td><td>Payés</td></tr>
-          <tr><td>Congés personnels (mobiles)</td><td>3 jours/an</td><td>Payés</td></tr>
-          <tr><td>Congé d'anniversaire</td><td>1 jour</td><td>Payé</td></tr>
-          <tr><td>Congé de maternité</td><td>18 semaines</td><td>RQAP</td></tr>
-          <tr><td>Congé de paternité</td><td>5 semaines</td><td>RQAP</td></tr>
-          <tr><td>Congé parental</td><td>Jusqu'à 32 semaines</td><td>RQAP</td></tr>
-          <tr><td>Congé pour décès (proche parent)</td><td>5 jours</td><td>Payé</td></tr>
-        </tbody>
-      </table>
+      <div class="table-scroll">
+        <table>
+          <caption class="sr-only">Types de congés offerts chez Lasco Corporation, durée et rémunération</caption>
+          <thead>
+            <tr><th scope="col">Type de congé</th><th scope="col">Durée</th><th scope="col">Rémunération</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Vacances annuelles (0 à 4 ans)</td><td>3 semaines</td><td>Payées</td></tr>
+            <tr><td>Vacances annuelles (5 ans et plus)</td><td>4 semaines</td><td>Payées</td></tr>
+            <tr><td>Congés maladie</td><td>10 jours par an <span class="plus">▲</span></td><td>Payés</td></tr>
+            <tr><td>Congés personnels (mobiles)</td><td>3 jours par an <span class="plus">▲</span></td><td>Payés</td></tr>
+            <tr><td>Congé d'anniversaire</td><td>1 jour <span class="plus">▲</span></td><td>Payé</td></tr>
+            <tr><td>Congé de maternité</td><td>18 semaines</td><td>RQAP</td></tr>
+            <tr><td>Congé de paternité</td><td>5 semaines</td><td>RQAP</td></tr>
+            <tr><td>Congé parental</td><td>Jusqu'à 32 semaines</td><td>RQAP</td></tr>
+            <tr><td>Congé pour décès (proche parent)</td><td>5 jours</td><td>Payé <span class="plus">▲</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="legal">⚖️ <b>Lecture du tableau :</b> le symbole <span class="plus">▲</span> signale un avantage <b>supérieur au minimum prévu par la <i>Loi sur les normes du travail</i></b>. La Loi prévoit 2 jours payés pour maladie ou obligations familiales, et 2 jours payés sur les 5 jours de congé de décès ; Lasco va au-delà. Les congés parentaux sont indemnisés par le <b>RQAP</b> (régime de base), non par Lasco.</div>
 
       <h3>Jours fériés Lasco 2026</h3>
       <p>Les jours fériés suivants sont chômés et payés pour tous les employés :</p>
       <div class="grid">
-        <div class="card"><h4>1er janvier</h4><p>Jour de l'An</p></div>
-        <div class="card"><h4>3 avril</h4><p>Vendredi saint</p></div>
-        <div class="card"><h4>6 avril</h4><p>Lundi de Pâques</p></div>
-        <div class="card"><h4>18 mai</h4><p>Journée nationale des patriotes</p></div>
-        <div class="card"><h4>24 juin</h4><p>Fête nationale du Québec</p></div>
-        <div class="card"><h4>1er juillet</h4><p>Fête du Canada</p></div>
-        <div class="card"><h4>7 septembre</h4><p>Fête du Travail</p></div>
-        <div class="card"><h4>12 octobre</h4><p>Action de grâces</p></div>
-        <div class="card"><h4>25 décembre</h4><p>Noël</p></div>
-        <div class="card"><h4>26 décembre</h4><p>Lendemain de Noël (offert Lasco)</p></div>
+        <div class="card"><h4>Jeudi 1<sup>er</sup> janvier</h4><p>Jour de l'An</p></div>
+        <div class="card"><h4>Vendredi 3 avril</h4><p>Vendredi saint</p></div>
+        <div class="card"><h4>Lundi 6 avril</h4><p>Lundi de Pâques</p><span class="bonus">Avantage Lasco</span></div>
+        <div class="card"><h4>Lundi 18 mai</h4><p>Journée nationale des patriotes</p></div>
+        <div class="card"><h4>Mercredi 24 juin</h4><p>Fête nationale du Québec</p></div>
+        <div class="card"><h4>Mercredi 1<sup>er</sup> juillet</h4><p>Fête du Canada</p></div>
+        <div class="card"><h4>Lundi 7 septembre</h4><p>Fête du Travail</p></div>
+        <div class="card"><h4>Lundi 12 octobre</h4><p>Action de grâces</p></div>
+        <div class="card"><h4>Vendredi 25 décembre</h4><p>Noël</p></div>
+        <div class="card"><h4>Samedi 26 décembre</h4><p>Lendemain de Noël</p><span class="bonus">Avantage Lasco</span></div>
       </div>
+      <div class="info">📌 <b>Précision :</b> la <i>Loi sur les normes du travail</i> reconnaît 8 jours fériés et laisse à l'employeur le choix entre le Vendredi saint <b>ou</b> le Lundi de Pâques. Lasco accorde les deux, ainsi que le lendemain de Noël. Le 26 décembre 2026 tombant un samedi, le congé est reporté au <b>lundi 28 décembre</b> pour les employés dont l'horaire est du lundi au vendredi.</div>
 
       <h3>Comment demander un congé</h3>
       <ul>
-        <li>Vacances annuelles : demande dans Outlook au moins <b>2 semaines à l'avance</b>, validation par votre gestionnaire</li>
-        <li>Congé maladie : prévenir votre gestionnaire dès le matin même</li>
-        <li>Absence prolongée (plus de 3 jours) : un certificat médical est requis</li>
-        <li>Congé de maternité/paternité/parental : rencontre avec Marie Colombe au moins <b>2 mois avant</b> la date prévue</li>
+        <li><b>Vacances annuelles</b> — demande au moins <b>2 semaines à l'avance</b>, validation par votre gestionnaire</li>
+        <li><b>Congé maladie</b> — prévenir votre gestionnaire dès le matin même</li>
+        <li><b>Absence prolongée</b> (plus de 3 jours) — un certificat médical est requis</li>
+        <li><b>Congé de maternité, paternité ou parental</b> — rencontre avec Marie Colombe au moins <b>2 mois avant</b> la date prévue</li>
       </ul>
-      <div class="info">📅 <b>Astuce :</b> Le calendrier partagé de votre département dans Outlook permet de voir en un coup d'œil qui est absent quand — pratique pour planifier vos propres congés.</div>
-    </div>
+      <div class="info">📅 <b>Astuce :</b> le calendrier partagé de votre département dans Outlook permet de voir en un coup d'œil qui est absent et quand — pratique pour planifier vos propres congés sans conflit d'équipe.</div>
+    </section>
 
     <!-- 4. DÉVELOPPEMENT -->
-    <div class="section" id="developpement">
+    <section class="section rich" id="developpement" role="tabpanel" aria-labelledby="tab-developpement" tabindex="0" hidden>
       <div class="panel-head">
-        <h2>📈 Développement professionnel</h2>
+        <h2>Développement professionnel</h2>
         <p>Votre progression chez Lasco : évaluations, formations, mobilité interne.</p>
       </div>
 
       <h3>Évaluations annuelles</h3>
       <p>Chaque employé bénéficie de <b>deux entretiens formels par an</b> avec son gestionnaire :</p>
       <ul>
-        <li><b>Entretien de mi-année</b> (juin) : point d'étape, ajustement des objectifs, identification des besoins de formation</li>
-        <li><b>Entretien annuel</b> (décembre) : bilan de l'année, définition des objectifs de l'année suivante, discussion salariale</li>
+        <li><b>Entretien de mi-année</b> (juin) — point d'étape, ajustement des objectifs, identification des besoins de formation</li>
+        <li><b>Entretien annuel</b> (décembre) — bilan de l'année, définition des objectifs de l'année suivante, discussion salariale</li>
       </ul>
       <p>Ces entretiens sont l'occasion de faire remonter vos aspirations de carrière, de discuter de mobilité interne et de planifier votre développement.</p>
 
@@ -240,10 +375,10 @@ footer b { color:var(--navy); }
         <li>Achat de livres professionnels</li>
         <li>Coaching ou mentorat externe</li>
       </ul>
-      <div class="tip">🎓 <b>À faire :</b> Consultez le <b>Centre de formation Lasco</b> pour les modules internes obligatoires (Cybersécurité, RGPD, Onboarding) — accessibles à tous et gratuits.</div>
+      <div class="tip">🎓 <b>À faire :</b> consultez le <b>Centre de formation Lasco</b> pour les modules internes obligatoires — Cybersécurité, Protection des renseignements personnels (Loi 25) et Accueil et intégration. Ils sont gratuits et accessibles à tous.</div>
 
       <h3>Mobilité interne</h3>
-      <p>Lasco privilégie les candidatures internes pour ses postes vacants. Chaque nouveau poste est publié pendant 10 jours ouvrables sur cet intranet avant d'être ouvert à l'externe. Si vous êtes intéressé par un poste :</p>
+      <p>Lasco privilégie les candidatures internes pour ses postes vacants. Chaque nouveau poste est publié pendant 10 jours ouvrables sur cet intranet avant d'être ouvert à l'externe. Si un poste vous intéresse :</p>
       <ul>
         <li>Informez votre gestionnaire de votre candidature</li>
         <li>Transmettez votre CV mis à jour à Marie Colombe</li>
@@ -251,170 +386,483 @@ footer b { color:var(--navy); }
       </ul>
 
       <h3>Parcours de carrière chez Lasco</h3>
-      <p>Chaque département offre des trajectoires de progression : au Service Client, un agent peut évoluer vers un rôle de Responsable ; en Comptabilité, un analyste peut viser un poste de Contrôleur ; à l'Informatique, un stagiaire peut évoluer vers Administrateur systèmes puis Architecte cloud. Ces parcours sont discutés lors des entretiens annuels.</p>
-    </div>
+      <p>Chaque département offre des trajectoires de progression : au Service Client, un agent peut évoluer vers un rôle de responsable ; en Comptabilité, un analyste peut viser un poste de contrôleur ; à l'Informatique, un stagiaire peut évoluer vers administrateur de systèmes, puis architecte infonuagique. Ces parcours sont discutés lors des entretiens annuels.</p>
+    </section>
 
-    <!-- 5. FORMULAIRES -->
-    <div class="section" id="formulaires">
+    <!-- 5. DEMANDES -->
+    <section class="section rich" id="formulaires" role="tabpanel" aria-labelledby="tab-formulaires" tabindex="0" hidden>
       <div class="panel-head">
-        <h2>📄 Formulaires et procédures</h2>
-        <p>Les documents dont vous aurez besoin au cours de votre carrière Lasco.</p>
+        <h2>Déposer une demande</h2>
+        <p>Chaque démarche RH passe par le Guichet. Choisissez votre demande : le courriel est pré-rempli, il ne reste qu'à compléter vos informations.</p>
       </div>
 
       <div class="grid">
-        <div class="card">
-          <h4>📋 Demande de congés</h4>
-          <p>Formulaire à remplir et à envoyer à votre gestionnaire pour validation.</p>
+        <div class="card svc" data-ref="RH-CONGE" data-obj="Demande de congés"
+             data-fields="Type de congé (vacances / personnel / sans solde)|Date de début|Date de fin|Nombre de jours ouvrables|Gestionnaire à mettre en copie">
+          <p class="ref">RH-CONGE</p>
+          <h4>Demande de congés</h4>
+          <p>Vacances, congé personnel ou sans solde. Validation par votre gestionnaire.</p>
         </div>
-        <div class="card">
-          <h4>🏠 Changement d'adresse</h4>
-          <p>À transmettre à Marie Colombe pour la mise à jour de vos coordonnées et de l'assurance collective.</p>
+        <div class="card svc" data-ref="RH-ADRESSE" data-obj="Changement d'adresse"
+             data-fields="Nouvelle adresse complète|Date de prise d'effet|Nouveau numéro de téléphone (si changé)">
+          <p class="ref">RH-ADRESSE</p>
+          <h4>Changement d'adresse</h4>
+          <p>Mise à jour de vos coordonnées au dossier employé et auprès de l'assureur collectif.</p>
         </div>
-        <div class="card">
-          <h4>💳 Changement bancaire</h4>
-          <p>Pour modifier le compte de dépôt de votre paie — un spécimen de chèque est requis.</p>
+        <div class="card svc" data-ref="RH-BANQUE" data-obj="Changement de compte bancaire (dépôt direct)"
+             data-fields="Date de prise d'effet souhaitée|Spécimen de chèque joint (oui / non)">
+          <p class="ref">RH-BANQUE</p>
+          <h4>Changement bancaire</h4>
+          <p>Modification du compte de dépôt de votre paie. Un spécimen de chèque est requis en pièce jointe.</p>
         </div>
-        <div class="card">
-          <h4>🤒 Déclaration d'absence</h4>
-          <p>Pour toute absence maladie de plus de 3 jours, joindre un certificat médical.</p>
+        <div class="card svc" data-ref="RH-ABSENCE" data-obj="Déclaration d'absence"
+             data-fields="Date de début de l'absence|Date de retour prévue|Motif (maladie / obligation familiale / autre)|Certificat médical joint si plus de 3 jours (oui / non)">
+          <p class="ref">RH-ABSENCE</p>
+          <h4>Déclaration d'absence</h4>
+          <p>Toute absence maladie de plus de 3 jours doit être accompagnée d'un certificat médical.</p>
         </div>
-        <div class="card">
-          <h4>💼 Demande de télétravail</h4>
-          <p>Formalisation d'un accord de télétravail régulier avec votre gestionnaire.</p>
+        <div class="card svc" data-ref="RH-TELETRAVAIL" data-obj="Demande d'entente de télétravail"
+             data-fields="Jours de télétravail souhaités|Date de début souhaitée|Gestionnaire ayant donné son accord|Adresse du lieu de télétravail">
+          <p class="ref">RH-TELETRAVAIL</p>
+          <h4>Entente de télétravail</h4>
+          <p>Formalisation d'un accord de télétravail régulier, jusqu'à 3 jours par semaine.</p>
         </div>
-        <div class="card">
-          <h4>🎓 Demande de formation</h4>
-          <p>Pour utiliser votre budget formation annuel (préciser la formation et son coût).</p>
+        <div class="card svc" data-ref="RH-FORMATION" data-obj="Demande de formation"
+             data-fields="Intitulé de la formation|Organisme ou fournisseur|Dates|Coût total (taxes incluses)|Lien avec vos objectifs annuels">
+          <p class="ref">RH-FORMATION</p>
+          <h4>Demande de formation</h4>
+          <p>Utilisation de votre budget annuel de 1 500 $. Précisez la formation et son coût.</p>
         </div>
-        <div class="card">
-          <h4>🚗 Remboursement kilométrique</h4>
-          <p>Feuille de suivi des déplacements professionnels — à soumettre mensuellement.</p>
+        <div class="card svc" data-ref="RH-KM" data-obj="Remboursement kilométrique"
+             data-fields="Mois visé|Nombre total de kilomètres|Détail des déplacements (date / trajet / motif)|Feuille de suivi jointe (oui / non)">
+          <p class="ref">RH-KM</p>
+          <h4>Remboursement kilométrique</h4>
+          <p>Feuille de suivi des déplacements professionnels, à soumettre mensuellement.</p>
         </div>
-        <div class="card">
-          <h4>👨‍👩‍👧 Bénéficiaires assurance</h4>
+        <div class="card svc" data-ref="RH-BENEF" data-obj="Désignation de bénéficiaires — assurance vie"
+             data-fields="Nom complet du ou des bénéficiaires|Lien de parenté|Date de naissance|Pourcentage attribué à chacun">
+          <p class="ref">RH-BENEF</p>
+          <h4>Bénéficiaires assurance</h4>
           <p>Désignation ou mise à jour des bénéficiaires de votre assurance vie collective.</p>
         </div>
-        <div class="card">
-          <h4>📝 Feedback 360°</h4>
+        <div class="card svc" data-ref="RH-360" data-obj="Participation à une évaluation 360°"
+             data-fields="Personne évaluée|Votre lien avec cette personne (gestionnaire / pair / collaborateur)|Période d'évaluation concernée">
+          <p class="ref">RH-360</p>
+          <h4>Évaluation 360°</h4>
           <p>Formulaire d'évaluation multi-source utilisé lors des entretiens annuels.</p>
         </div>
       </div>
-      <div class="info">📥 <b>Où trouver les formulaires ?</b> Tous les formulaires officiels sont disponibles sur le site SharePoint RH, dans la bibliothèque « Formulaires ». Pour toute question sur leur utilisation, contactez Marie Colombe.</div>
-    </div>
+
+      <div class="info">📥 <b>Comment ça fonctionne :</b> le bouton ouvre votre client de messagerie avec le destinataire, un objet normalisé (référence <b>RH-XXX</b>) et les champs à compléter. La référence permet à Marie Colombe de classer et de retrouver votre demande. Les versions officielles en format document restent disponibles sur le site SharePoint RH, bibliothèque « Formulaires ».</div>
+      <div class="tip">🔒 <b>Confidentialité :</b> n'incluez jamais votre numéro d'assurance sociale, un numéro de compte bancaire complet ou des renseignements médicaux détaillés dans le corps d'un courriel. Ces éléments se transmettent en pièce jointe ou en personne, conformément à la Loi 25.</div>
+    </section>
 
     <!-- 6. CONTACT -->
-    <div class="section" id="contact">
+    <section class="section rich" id="contact" role="tabpanel" aria-labelledby="tab-contact" tabindex="0" hidden>
       <div class="panel-head">
-        <h2>❓ Contact RH</h2>
+        <h2>Contact RH</h2>
         <p>Votre interlocutrice RH est là pour répondre à toutes vos questions.</p>
       </div>
 
       <div class="contact-card">
-        <div class="avatar">MC</div>
-        <div class="info">
+        <div class="avatar" aria-hidden="true">MC</div>
+        <div class="who">
           <h3>Marie Colombe</h3>
-          <div class="role">Responsable Ressources Humaines</div>
+          <p class="role">Responsable des Ressources humaines</p>
           <div class="details">
-            <div><b>📧</b> m.colombe@lascocorp.com</div>
-            <div><b>📞</b> Poste interne 205</div>
-            <div><b>📅</b> Prise de rendez-vous via Outlook</div>
-            <div><b>🕐</b> Lun-Ven, 9h-17h</div>
+            <div><span aria-hidden="true">📧</span> <a href="mailto:m.colombe@lascocorp.com">m.colombe@lascocorp.com</a></div>
+            <div><span aria-hidden="true">📞</span> Poste interne 205</div>
+            <div><span aria-hidden="true">📅</span> Prise de rendez-vous via Outlook</div>
+            <div><span aria-hidden="true">🕐</span> Du lundi au vendredi, 9 h à 17 h</div>
           </div>
         </div>
       </div>
 
       <h3>Questions fréquentes</h3>
 
-      <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q">Comment puis-je consulter mes talons de paie ?</div>
-        <div class="faq-a">Vos talons de paie sont déposés chaque quinzaine dans votre OneDrive personnel, dans le dossier « Paie ». Ils sont également accessibles en version papier sur demande auprès de Marie Colombe.</div>
+      <div class="faq-item">
+        <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq1">Comment puis-je consulter mes talons de paie ?</button>
+        <div class="faq-a" id="faq1" hidden>Vos talons de paie sont déposés chaque quinzaine dans votre OneDrive personnel, dans le dossier « Paie ». Ils sont également accessibles en version papier sur demande auprès de Marie Colombe.</div>
       </div>
 
-      <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q">Combien de jours de vacances ai-je à ma disposition ?</div>
-        <div class="faq-a">Cela dépend de votre ancienneté : 3 semaines pour 0-4 ans d'ancienneté, 4 semaines à partir de 5 ans. Votre solde exact est disponible sur votre dernier talon de paie et peut être confirmé par Marie Colombe.</div>
+      <div class="faq-item">
+        <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq2">Combien de jours de vacances ai-je à ma disposition ?</button>
+        <div class="faq-a" id="faq2" hidden>Cela dépend de votre ancienneté : 3 semaines de 0 à 4 ans d'ancienneté, 4 semaines à partir de 5 ans. Votre solde exact figure sur votre dernier talon de paie et peut être confirmé par Marie Colombe.</div>
       </div>
 
-      <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q">Comment ajouter un enfant à mon assurance collective ?</div>
-        <div class="faq-a">Un événement de vie (naissance, adoption, mariage) doit être déclaré à Marie Colombe dans les 30 jours pour ajouter un dépendant à votre assurance. Le formulaire à utiliser est disponible dans la section Formulaires.</div>
+      <div class="faq-item">
+        <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq3">Comment ajouter un enfant à mon assurance collective ?</button>
+        <div class="faq-a" id="faq3" hidden>Un événement de vie (naissance, adoption, mariage) doit être déclaré à Marie Colombe dans les 30 jours pour ajouter une personne à charge à votre assurance. Passé ce délai, l'assureur peut refuser l'ajout jusqu'à la période de réadhésion annuelle.</div>
       </div>
 
-      <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q">Je pense être victime de harcèlement au travail. Que faire ?</div>
-        <div class="faq-a">Prenez contact <b>en toute confidentialité</b> avec Marie Colombe (ou avec la Direction si le sujet la concerne). Une enquête indépendante est ouverte dans les 5 jours ouvrables suivant votre signalement, et vous êtes protégé contre toute forme de représailles.</div>
+      <div class="faq-item">
+        <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq4">Je pense être victime de harcèlement au travail. Que faire ?</button>
+        <div class="faq-a" id="faq4" hidden>Prenez contact <b>en toute confidentialité</b> avec Marie Colombe, ou directement avec la Direction si le sujet la concerne. Une enquête indépendante est ouverte dans les 5 jours ouvrables suivant votre signalement, et vous êtes protégé contre toute forme de représailles.</div>
       </div>
 
-      <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q">Est-ce que je peux changer de département en interne ?</div>
-        <div class="faq-a">Absolument — la mobilité interne est encouragée. Discutez d'abord de vos aspirations avec votre gestionnaire actuel, puis avec Marie Colombe. Chaque poste vacant est publié en interne 10 jours ouvrables avant d'être ouvert à l'externe.</div>
+      <div class="faq-item">
+        <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq5">Est-ce que je peux changer de département en interne ?</button>
+        <div class="faq-a" id="faq5" hidden>Oui — la mobilité interne est encouragée. Discutez d'abord de vos aspirations avec votre gestionnaire actuel, puis avec Marie Colombe. Chaque poste vacant est publié en interne 10 jours ouvrables avant d'être ouvert à l'externe.</div>
       </div>
 
-      <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q">Mon poste de travail présente un problème ergonomique. Que faire ?</div>
-        <div class="faq-a">Signalez-le à Marie Colombe : un ergothérapeute peut être mandaté pour évaluer votre poste, et Lasco prend en charge les équipements adaptés recommandés (chaise ergonomique, écran surélevé, souris verticale, etc.).</div>
+      <div class="faq-item">
+        <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq6">Mon poste de travail présente un problème ergonomique. Que faire ?</button>
+        <div class="faq-a" id="faq6" hidden>Signalez-le à Marie Colombe : un ergothérapeute peut être mandaté pour évaluer votre poste, et Lasco prend en charge les équipements adaptés recommandés (chaise ergonomique, écran surélevé, souris verticale, etc.).</div>
       </div>
 
-      <div class="faq-item" onclick="this.classList.toggle('open')">
-        <div class="faq-q">Comment demander une avance sur salaire ?</div>
-        <div class="faq-a">Les avances sur salaire sont accordées au cas par cas pour des situations exceptionnelles. Adressez une demande écrite à Marie Colombe expliquant votre situation ; une réponse vous est donnée sous 3 jours ouvrables.</div>
+      <div class="faq-item">
+        <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq7">Comment demander une avance sur salaire ?</button>
+        <div class="faq-a" id="faq7" hidden>Les avances sur salaire sont accordées au cas par cas pour des situations exceptionnelles. Adressez une demande écrite à Marie Colombe expliquant votre situation ; une réponse vous est donnée sous 3 jours ouvrables.</div>
       </div>
+
+      <div class="faq-item">
+        <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq8">Qui peut consulter mon dossier employé ?</button>
+        <div class="faq-a" id="faq8" hidden>Seules les personnes qui en ont besoin dans l'exercice de leurs fonctions : la responsable RH et, pour les éléments qui les concernent, votre gestionnaire et la Direction. Conformément à la Loi 25, vous disposez d'un droit d'accès et de rectification sur les renseignements qui vous concernent — la demande se fait par écrit auprès du Guichet RH.</div>
+      </div>
+    </section>
+
+  </div>
+
+  <div class="panel" id="resultsPanel" hidden>
+    <div class="panel-head">
+      <h2>Résultats de recherche</h2>
+      <p id="resultsCount" role="status" aria-live="polite"></p>
     </div>
-
+    <div id="resultsList" class="rich"></div>
   </div>
 
-  <div class="no-results" id="noResults" style="display:none">
-    <b>Aucun résultat</b><br>
-    Aucune information ne correspond à votre recherche. Essayez un autre terme ou parcourez les sections.
-  </div>
+  </main>
 </div>
 
-<footer><b>LASCO CORPORATION</b> — Espace RH · Confidentiel employés · Contact : m.colombe@lascocorp.com</footer>
+<footer>
+  <b>LASCO CORPORATION</b> — Guichet RH · Document interne, confidentiel employés · <a href="mailto:m.colombe@lascocorp.com">m.colombe@lascocorp.com</a>
+  <span class="gov">Propriétaire : Ressources humaines · Version 2.0 · Mise à jour : 30 juillet 2026 · Prochaine révision : juillet 2027</span>
+</footer>
 
 <script>
-function showTab(id, evt) {
-  document.querySelectorAll('.section').forEach(s => s.classList.remove('on'));
-  document.getElementById(id).classList.add('on');
-  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('on'));
-  evt.target.classList.add('on');
-  document.getElementById('search').value = '';
-  document.getElementById('noResults').style.display = 'none';
-  document.querySelectorAll('.section .card, .section .faq-item, .section h3, .section p, .section ul, .section table, .section .contact-card').forEach(el => el.style.display = '');
-}
+(function () {
+  'use strict';
 
-function doSearch() {
-  const q = document.getElementById('search').value.trim().toLowerCase();
-  if (!q) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('on'));
-    document.querySelector('.tabs button.on').click();
-    return;
+  var RH_MAIL = 'm.colombe@lascocorp.com';
+
+  /* ---------- Utilitaires ---------- */
+
+  // Recherche insensible aux accents : « conge » trouve « congé ».
+  // La longueur de la chaîne est préservée, donc les indices restent valides
+  // pour le surlignage. Plage des diacritiques combinants U+0300–U+036F,
+  // construite par code point pour ne pas dépendre de l'encodage du fichier.
+  var COMBINING = new RegExp('[' + String.fromCharCode(768) + '-' + String.fromCharCode(879) + ']', 'g');
+
+  function fold(s) {
+    return s.toLowerCase().normalize('NFD').replace(COMBINING, '');
   }
-  // Recherche : afficher toutes les sections et masquer ce qui ne correspond pas
-  document.querySelectorAll('.section').forEach(s => s.classList.add('on'));
-  document.querySelectorAll('.tabs button').forEach(b => b.classList.remove('on'));
 
-  let anyMatch = false;
-  document.querySelectorAll('.section').forEach(sec => {
-    let sectionHasMatch = false;
-    sec.querySelectorAll('h3, p, li, .card, .faq-item, td, .contact-card').forEach(el => {
-      const t = el.textContent.toLowerCase();
-      if (t.includes(q)) { el.style.display = ''; sectionHasMatch = true; anyMatch = true; }
-      else { el.style.display = 'none'; }
+  var tabs    = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+  var panel   = document.getElementById('panel');
+  var resPan  = document.getElementById('resultsPanel');
+  var resList = document.getElementById('resultsList');
+  var resCnt  = document.getElementById('resultsCount');
+  var input   = document.getElementById('search');
+  var wrap    = document.getElementById('searchWrap');
+
+  function sectionOf(id) { return document.getElementById(id); }
+  function tabOf(id) { return document.getElementById('tab-' + id); }
+  function validTab(id) { return tabs.some(function (t) { return t.dataset.tab === id; }); }
+
+  /* ---------- Onglets ---------- */
+
+  function activate(id, focus) {
+    if (!validTab(id)) { id = tabs[0].dataset.tab; }
+    tabs.forEach(function (t) {
+      var on = t.dataset.tab === id;
+      t.setAttribute('aria-selected', on ? 'true' : 'false');
+      t.tabIndex = on ? 0 : -1;
+      var sec = sectionOf(t.dataset.tab);
+      sec.classList.toggle('on', on);
+      if (on) { sec.removeAttribute('hidden'); } else { sec.setAttribute('hidden', ''); }
     });
-    // Les tableaux : montrer si au moins une ligne matche
-    sec.querySelectorAll('table').forEach(tbl => {
-      const rows = tbl.querySelectorAll('tbody tr');
-      let anyRow = false;
-      rows.forEach(r => {
-        if (r.textContent.toLowerCase().includes(q)) { r.style.display = ''; anyRow = true; }
-        else { r.style.display = 'none'; }
-      });
-      tbl.style.display = anyRow ? '' : 'none';
-      if (anyRow) sectionHasMatch = true;
-    });
+    if (focus) { tabOf(id).focus(); }
+    if (history.replaceState) {
+      history.replaceState(null, '', '#' + id);
+    } else {
+      location.hash = id;
+    }
+  }
+
+  document.querySelector('.tabs').addEventListener('click', function (e) {
+    var btn = e.target.closest('[role="tab"]');
+    if (!btn) { return; }
+    clearSearch(false);
+    activate(btn.dataset.tab, false);
   });
-  document.getElementById('noResults').style.display = anyMatch ? 'none' : 'block';
-}
+
+  document.querySelector('.tabs').addEventListener('keydown', function (e) {
+    var i = tabs.indexOf(document.activeElement);
+    if (i < 0) { return; }
+    var n = null;
+    if (e.key === 'ArrowRight') { n = (i + 1) % tabs.length; }
+    else if (e.key === 'ArrowLeft') { n = (i - 1 + tabs.length) % tabs.length; }
+    else if (e.key === 'Home') { n = 0; }
+    else if (e.key === 'End') { n = tabs.length - 1; }
+    if (n === null) { return; }
+    e.preventDefault();
+    clearSearch(false);
+    activate(tabs[n].dataset.tab, true);
+  });
+
+  /* ---------- FAQ (accordéon accessible) ---------- */
+
+  document.addEventListener('click', function (e) {
+    var q = e.target.closest('.faq-q');
+    if (!q) { return; }
+    var open = q.getAttribute('aria-expanded') === 'true';
+    q.setAttribute('aria-expanded', open ? 'false' : 'true');
+    var a = document.getElementById(q.getAttribute('aria-controls'));
+    if (a) { if (open) { a.setAttribute('hidden', ''); } else { a.removeAttribute('hidden'); } }
+  });
+
+  /* ---------- Catalogue de demandes : courriels pré-remplis ---------- */
+
+  document.querySelectorAll('.card.svc').forEach(function (card) {
+    var ref    = card.dataset.ref;
+    var obj    = card.dataset.obj;
+    var fields = (card.dataset.fields || '').split('|').filter(Boolean);
+
+    var body = 'Bonjour Marie,\n\n'
+             + 'Je dépose la demande suivante auprès du Guichet RH.\n\n'
+             + 'Référence : ' + ref + '\n'
+             + 'Objet : ' + obj + '\n\n'
+             + '--- Renseignements à compléter ---\n'
+             + fields.map(function (f) { return '- ' + f + ' : '; }).join('\n')
+             + '\n\n--- Demandeur ---\n'
+             + '- Nom complet : \n'
+             + '- Département : \n'
+             + '- Gestionnaire : \n\n'
+             + 'Merci,\n';
+
+    var a = document.createElement('a');
+    a.className = 'svc-btn';
+    a.textContent = 'Faire une demande';
+    a.setAttribute('aria-label', 'Faire une demande : ' + obj + ' (référence ' + ref + ')');
+    a.href = 'mailto:' + RH_MAIL
+           + '?subject=' + encodeURIComponent('[Guichet RH] ' + ref + ' — ' + obj)
+           + '&body=' + encodeURIComponent(body);
+    card.appendChild(a);
+  });
+
+  /* ---------- Index de recherche ---------- */
+
+  var index = [];
+
+  (function buildIndex() {
+    var ATOMIC = '.card, .faq-item';
+
+    document.querySelectorAll('.section').forEach(function (sec) {
+      var tab   = tabOf(sec.id);
+      var label = tab ? tab.dataset.label : sec.id;
+      var heading = sec.querySelector('.panel-head h2').textContent.trim();
+      var prose = [];
+
+      function flushProse() {
+        // Ne pas indexer un bloc réduit à son seul titre (produirait un résultat vide)
+        if (!prose.length || prose.every(function (el) { return el.tagName === 'H3'; })) {
+          prose = [];
+          return;
+        }
+        var box = document.createElement('div');
+        prose.forEach(function (el) { box.appendChild(el.cloneNode(true)); });
+        index.push({ tab: sec.id, label: label, crumb: heading, node: box, text: fold(box.textContent) });
+        prose = [];
+      }
+
+      Array.prototype.forEach.call(sec.children, function (el) {
+        if (el.classList.contains('panel-head')) { return; }
+
+        if (el.tagName === 'H3') { flushProse(); heading = el.textContent.trim(); prose.push(el); return; }
+
+        // Grille de cartes : chaque carte est un résultat distinct
+        if (el.classList.contains('grid')) {
+          flushProse();
+          el.querySelectorAll('.card').forEach(function (c) {
+            index.push({ tab: sec.id, label: label, crumb: heading, node: c.cloneNode(true), text: fold(c.textContent) });
+          });
+          return;
+        }
+
+        // Tableau : chaque ligne est un résultat, réaffichée avec son en-tête
+        if (el.classList.contains('table-scroll') || el.tagName === 'TABLE') {
+          flushProse();
+          var tbl = el.tagName === 'TABLE' ? el : el.querySelector('table');
+          if (!tbl) { return; }
+          var thead = tbl.querySelector('thead');
+          tbl.querySelectorAll('tbody tr').forEach(function (tr) {
+            var mini = document.createElement('table');
+            if (thead) { mini.appendChild(thead.cloneNode(true)); }
+            var tb = document.createElement('tbody');
+            tb.appendChild(tr.cloneNode(true));
+            mini.appendChild(tb);
+            var scroll = document.createElement('div');
+            scroll.className = 'table-scroll';
+            scroll.appendChild(mini);
+            index.push({ tab: sec.id, label: label, crumb: heading, node: scroll, text: fold(tr.textContent) });
+          });
+          return;
+        }
+
+        // Bloc FAQ ou carte contact isolée
+        if (el.matches(ATOMIC) || el.classList.contains('contact-card')) {
+          flushProse();
+          index.push({ tab: sec.id, label: label, crumb: heading, node: el.cloneNode(true), text: fold(el.textContent) });
+          return;
+        }
+
+        prose.push(el);
+      });
+
+      flushProse();
+    });
+  }());
+
+  /* ---------- Surlignage ---------- */
+
+  function highlight(root, q) {
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null, false);
+    var nodes = [], n;
+    while ((n = walker.nextNode())) { nodes.push(n); }
+
+    nodes.forEach(function (node) {
+      var raw = node.nodeValue;
+      var low = fold(raw);
+      if (low.indexOf(q) === -1) { return; }
+      var frag = document.createDocumentFragment();
+      var pos = 0, i;
+      while ((i = low.indexOf(q, pos)) !== -1) {
+        if (i > pos) { frag.appendChild(document.createTextNode(raw.slice(pos, i))); }
+        var mk = document.createElement('mark');
+        mk.textContent = raw.slice(i, i + q.length);
+        frag.appendChild(mk);
+        pos = i + q.length;
+      }
+      frag.appendChild(document.createTextNode(raw.slice(pos)));
+      node.parentNode.replaceChild(frag, node);
+    });
+  }
+
+  /* ---------- Recherche ---------- */
+
+  function currentTab() {
+    var sel = tabs.filter(function (t) { return t.getAttribute('aria-selected') === 'true'; })[0];
+    return sel ? sel.dataset.tab : tabs[0].dataset.tab;
+  }
+
+  function showPanel() {
+    resPan.setAttribute('hidden', '');
+    panel.removeAttribute('hidden');
+  }
+
+  function clearSearch(restore) {
+    input.value = '';
+    wrap.classList.remove('filled');
+    showPanel();
+    if (restore) { activate(currentTab(), false); }
+  }
+
+  function runSearch() {
+    var q = fold(input.value.trim());
+    wrap.classList.toggle('filled', input.value.length > 0);
+
+    if (q.length < 2) { showPanel(); return; }
+
+    var hits = index.filter(function (u) { return u.text.indexOf(q) !== -1; });
+
+    resList.textContent = '';
+    panel.setAttribute('hidden', '');
+    resPan.removeAttribute('hidden');
+
+    if (!hits.length) {
+      resCnt.textContent = 'Aucun résultat pour « ' + input.value.trim() + ' ».';
+      var empty = document.createElement('div');
+      empty.className = 'no-results';
+      empty.innerHTML = '<b>Aucun résultat</b>Essayez un autre terme, ou parcourez les rubriques du Guichet. '
+                      + 'Si l\'information reste introuvable, contactez Marie Colombe.';
+      resList.appendChild(empty);
+      return;
+    }
+
+    resCnt.textContent = hits.length + (hits.length > 1 ? ' résultats trouvés' : ' résultat trouvé')
+                       + ' pour « ' + input.value.trim() + ' ».';
+
+    hits.forEach(function (u) {
+      var box = document.createElement('div');
+      box.className = 'res';
+
+      var crumb = document.createElement('p');
+      crumb.className = 'res-crumb';
+      crumb.textContent = u.label;
+      if (u.crumb && u.crumb !== u.label) {
+        var sp = document.createElement('span');
+        sp.textContent = ' › ' + u.crumb;
+        crumb.appendChild(sp);
+      }
+      box.appendChild(crumb);
+
+      var content = u.node.cloneNode(true);
+      // Éviter les identifiants dupliqués entre le panneau et les résultats
+      content.querySelectorAll('[id]').forEach(function (el) { el.removeAttribute('id'); });
+      // Un accordéon FAQ s'affiche déplié et inerte dans les résultats
+      content.querySelectorAll('.faq-a[hidden]').forEach(function (a) { a.removeAttribute('hidden'); });
+      content.querySelectorAll('.faq-q').forEach(function (b) {
+        b.setAttribute('aria-expanded', 'true');
+        b.removeAttribute('aria-controls');
+        b.disabled = true;
+      });
+      highlight(content, q);
+      box.appendChild(content);
+
+      var go = document.createElement('button');
+      go.type = 'button';
+      go.className = 'res-go';
+      go.dataset.goto = u.tab;
+      go.textContent = 'Voir dans « ' + u.label + ' »';
+      box.appendChild(go);
+
+      resList.appendChild(box);
+    });
+  }
+
+  var timer;
+  input.addEventListener('input', function () {
+    clearTimeout(timer);
+    timer = setTimeout(runSearch, 140);
+  });
+  input.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') { clearSearch(true); }
+  });
+  document.getElementById('searchClear').addEventListener('click', function () {
+    clearSearch(true);
+    input.focus();
+  });
+
+  resList.addEventListener('click', function (e) {
+    var go = e.target.closest('[data-goto]');
+    if (!go) { return; }
+    clearSearch(false);
+    activate(go.dataset.goto, true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+
+  /* ---------- Impression ---------- */
+
+  document.getElementById('printBtn').addEventListener('click', function () { window.print(); });
+
+  /* ---------- Démarrage : lien profond #rubrique ---------- */
+
+  activate((location.hash || '').replace('#', '') || tabs[0].dataset.tab, false);
+  window.addEventListener('hashchange', function () {
+    var id = (location.hash || '').replace('#', '');
+    if (validTab(id)) { clearSearch(false); activate(id, false); }
+  });
+}());
 </script>
 </body>
 </html>
