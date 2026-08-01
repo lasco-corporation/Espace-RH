@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Guichet RH — Lasco Corporation</title>
-<meta name="description" content="Guichet RH de Lasco Corporation : avantages sociaux, politiques d'entreprise, congés, développement professionnel et dépôt de demandes.">
+<meta name="description" content="Guichet RH de Lasco Corporation : avantages sociaux, politiques d'entreprise, procédures, congés, développement professionnel et dépôt de demandes.">
 <meta name="robots" content="noindex, nofollow">
 <meta name="theme-color" content="#1f3864">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%231f3864'/><text x='16' y='24' font-family='Georgia,serif' font-size='21' font-weight='700' fill='%23c69b2e' text-anchor='middle'>L</text></svg>">
@@ -120,6 +120,22 @@ h1 { font-family:'Playfair Display',Georgia,serif; color:var(--navy); font-size:
 .rich tbody tr:hover td { background:#f9fafd; }
 .rich td .plus { color:var(--gold-dk); font-weight:700; }
 
+/* --- Appel à l'action vers un système externe --- */
+.rich .cta-sp {
+  display:flex; align-items:center; gap:18px; text-decoration:none;
+  background:linear-gradient(135deg,var(--navy),var(--navy-d)); color:#fff;
+  padding:22px 26px; border-radius:14px; margin:18px 0 10px;
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.rich .cta-sp:hover { transform:translateY(-2px); box-shadow:0 12px 26px rgba(31,56,100,.25); }
+.rich .cta-sp .ico { width:50px; height:50px; flex-shrink:0; border-radius:12px; background:var(--gold); display:grid; place-items:center; font-size:24px; }
+.rich .cta-sp .txt { flex:1; min-width:0; }
+.rich .cta-sp .txt b { display:block; font-family:'Playfair Display',Georgia,serif; font-size:18px; margin-bottom:4px; }
+.rich .cta-sp .txt em { display:block; font-style:normal; font-size:13px; color:var(--gold-l); line-height:1.5; }
+.rich .cta-sp .arrow { font-size:24px; color:var(--gold); flex-shrink:0; }
+.rich .url-note { font-size:12.5px; color:var(--grey); margin:0 0 6px; }
+.rich .url-note code { font-family:ui-monospace,'Cascadia Mono',Consolas,monospace; font-size:12px; color:var(--navy); background:#f4f6fb; padding:2px 6px; border-radius:4px; word-break:break-all; }
+
 /* --- Catalogue de demandes --- */
 .rich .card.svc { border-left-color:var(--navy); }
 .rich .card.svc .ref { font-size:11px; font-weight:700; letter-spacing:1px; color:var(--gold-dk); margin-bottom:6px; }
@@ -179,6 +195,9 @@ footer .gov { display:block; margin-top:4px; font-size:11.5px; color:#9aa3b3; }
   .head-tools { width:100%; }
   .tabs button { padding:11px 14px; font-size:13px; }
   .contact-card { padding:20px; }
+  .rich .cta-sp { padding:18px; gap:14px; }
+  .rich .cta-sp .ico { width:42px; height:42px; font-size:20px; }
+  .rich .cta-sp .txt b { font-size:16px; }
 }
 @media (prefers-reduced-motion:reduce) {
   html { scroll-behavior:auto; }
@@ -190,9 +209,10 @@ footer .gov { display:block; margin-top:4px; font-size:11.5px; color:#9aa3b3; }
   .panel { box-shadow:none; border-radius:0; padding:0; }
   .section { display:block !important; page-break-before:always; }
   .section:first-of-type { page-break-before:auto; }
-  .rich h3, .rich .card, .rich .faq-item, .rich table { page-break-inside:avoid; }
+  .rich h3, .rich .card, .rich .faq-item, .rich table, .rich .cta-sp { page-break-inside:avoid; }
   .faq-a[hidden] { display:block !important; }
-  .rich th { background:#1f3864 !important; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .rich th, .rich .cta-sp { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  .rich .cta-sp .arrow { display:none; }
 }
 </style>
 </head>
@@ -220,6 +240,7 @@ footer .gov { display:block; margin-top:4px; font-size:11.5px; color:#9aa3b3; }
   <div class="tabs" role="tablist" aria-label="Rubriques du Guichet RH">
     <button role="tab" id="tab-avantages" aria-controls="avantages" aria-selected="true" tabindex="0" data-tab="avantages" data-label="Avantages sociaux"><span aria-hidden="true">💼</span> Avantages sociaux</button>
     <button role="tab" id="tab-politiques" aria-controls="politiques" aria-selected="false" tabindex="-1" data-tab="politiques" data-label="Politiques"><span aria-hidden="true">📋</span> Politiques</button>
+    <button role="tab" id="tab-procedures" aria-controls="procedures" aria-selected="false" tabindex="-1" data-tab="procedures" data-label="Procédures"><span aria-hidden="true">📁</span> Procédures</button>
     <button role="tab" id="tab-conges" aria-controls="conges" aria-selected="false" tabindex="-1" data-tab="conges" data-label="Congés"><span aria-hidden="true">🌴</span> Congés</button>
     <button role="tab" id="tab-developpement" aria-controls="developpement" aria-selected="false" tabindex="-1" data-tab="developpement" data-label="Développement"><span aria-hidden="true">📈</span> Développement</button>
     <button role="tab" id="tab-formulaires" aria-controls="formulaires" aria-selected="false" tabindex="-1" data-tab="formulaires" data-label="Demandes"><span aria-hidden="true">📄</span> Demandes</button>
@@ -297,7 +318,38 @@ footer .gov { display:block; margin-top:4px; font-size:11.5px; color:#9aa3b3; }
       <div class="tip">💡 <b>En pratique :</b> ne transmettez jamais de renseignements personnels d'employés ou de clients par courriel non chiffré, ni vers un stockage externe à Lasco (clé USB personnelle, service infonuagique non approuvé).</div>
     </section>
 
-    <!-- 3. CONGÉS -->
+    <!-- 3. PROCÉDURES -->
+    <section class="section rich" id="procedures" role="tabpanel" aria-labelledby="tab-procedures" tabindex="0" hidden>
+      <div class="panel-head">
+        <h2>Procédures</h2>
+        <p>Les politiques disent ce qui s'applique ; les procédures disent comment faire. Elles sont centralisées dans une bibliothèque de documents unique, sur le site intranet L'Afficheur.</p>
+      </div>
+
+      <a class="cta-sp" href="https://lascocorp.sharepoint.com/Procdures/Forms/AllItems.aspx" target="_blank" rel="noopener noreferrer">
+        <span class="ico" aria-hidden="true">📁</span>
+        <span class="txt">
+          <b>Ouvrir la bibliothèque Procédures</b>
+          <em>Site L'Afficheur · SharePoint Online · documents Word et PDF · s'ouvre dans un nouvel onglet</em>
+        </span>
+        <span class="arrow" aria-hidden="true">↗</span>
+      </a>
+      <p class="url-note">Adresse : <code>lascocorp.sharepoint.com/Procdures</code></p>
+
+      <h3>Ce que vous y trouverez</h3>
+      <p>Les procédures sont classées par domaine. Chaque document décrit une opération précise, étape par étape, avec la personne responsable et les outils concernés.</p>
+      <div class="grid">
+        <div class="card"><h4>Accueil et intégration</h4><p>Première journée, remise du matériel, création des accès, formations obligatoires.</p></div>
+        <div class="card"><h4>Informatique et sécurité</h4><p>Réinitialisation de mot de passe, inscription d'un appareil à Intune, signalement d'un incident.</p></div>
+        <div class="card"><h4>Service Client</h4><p>Traitement d'une soumission, ouverture et suivi d'une réclamation, escalade d'un dossier.</p></div>
+        <div class="card"><h4>Comptabilité</h4><p>Émission d'une facture, relance client, clôture financière mensuelle.</p></div>
+        <div class="card"><h4>Ressources humaines</h4><p>Départ d'un employé, changement de poste, gestion d'une absence prolongée.</p></div>
+        <div class="card"><h4>Continuité des opérations</h4><p>Panne majeure, perte d'accès aux systèmes, procédure de repli.</p></div>
+      </div>
+
+      <div class="tip">🔍 <b>Recherche :</b> la barre de recherche du Guichet RH ne parcourt pas le contenu des documents Word et PDF. Pour chercher à l'intérieur des procédures, utilisez la recherche de SharePoint une fois la bibliothèque ouverte — elle indexe le texte des documents.</div>
+    </section>
+
+    <!-- 4. CONGÉS -->
     <section class="section rich" id="conges" role="tabpanel" aria-labelledby="tab-conges" tabindex="0" hidden>
       <div class="panel-head">
         <h2>Congés et absences</h2>
@@ -352,7 +404,7 @@ footer .gov { display:block; margin-top:4px; font-size:11.5px; color:#9aa3b3; }
       <div class="info">📅 <b>Astuce :</b> le calendrier partagé de votre département dans Outlook permet de voir en un coup d'œil qui est absent et quand — pratique pour planifier vos propres congés sans conflit d'équipe.</div>
     </section>
 
-    <!-- 4. DÉVELOPPEMENT -->
+    <!-- 5. DÉVELOPPEMENT -->
     <section class="section rich" id="developpement" role="tabpanel" aria-labelledby="tab-developpement" tabindex="0" hidden>
       <div class="panel-head">
         <h2>Développement professionnel</h2>
@@ -389,7 +441,7 @@ footer .gov { display:block; margin-top:4px; font-size:11.5px; color:#9aa3b3; }
       <p>Chaque département offre des trajectoires de progression : au Service Client, un agent peut évoluer vers un rôle de responsable ; en Comptabilité, un analyste peut viser un poste de contrôleur ; à l'Informatique, un stagiaire peut évoluer vers administrateur de systèmes, puis architecte infonuagique. Ces parcours sont discutés lors des entretiens annuels.</p>
     </section>
 
-    <!-- 5. DEMANDES -->
+    <!-- 6. DEMANDES -->
     <section class="section rich" id="formulaires" role="tabpanel" aria-labelledby="tab-formulaires" tabindex="0" hidden>
       <div class="panel-head">
         <h2>Déposer une demande</h2>
@@ -457,7 +509,7 @@ footer .gov { display:block; margin-top:4px; font-size:11.5px; color:#9aa3b3; }
       <div class="tip">🔒 <b>Confidentialité :</b> n'incluez jamais votre numéro d'assurance sociale, un numéro de compte bancaire complet ou des renseignements médicaux détaillés dans le corps d'un courriel. Ces éléments se transmettent en pièce jointe ou en personne, conformément à la Loi 25.</div>
     </section>
 
-    <!-- 6. CONTACT -->
+    <!-- 7. CONTACT -->
     <section class="section rich" id="contact" role="tabpanel" aria-labelledby="tab-contact" tabindex="0" hidden>
       <div class="panel-head">
         <h2>Contact RH</h2>
@@ -519,6 +571,11 @@ footer .gov { display:block; margin-top:4px; font-size:11.5px; color:#9aa3b3; }
         <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq8">Qui peut consulter mon dossier employé ?</button>
         <div class="faq-a" id="faq8" hidden>Seules les personnes qui en ont besoin dans l'exercice de leurs fonctions : la responsable RH et, pour les éléments qui les concernent, votre gestionnaire et la Direction. Conformément à la Loi 25, vous disposez d'un droit d'accès et de rectification sur les renseignements qui vous concernent — la demande se fait par écrit auprès du Guichet RH.</div>
       </div>
+
+      <div class="faq-item">
+        <button type="button" class="faq-q" aria-expanded="false" aria-controls="faq9">Où sont les procédures détaillées ?</button>
+        <div class="faq-a" id="faq9" hidden>Dans la bibliothèque <b>Procédures</b> du site intranet L'Afficheur, accessible depuis l'onglet « Procédures » de ce Guichet. Le Guichet RH décrit vos droits et vos démarches ; les procédures décrivent les opérations pas à pas, département par département.</div>
+      </div>
     </section>
 
   </div>
@@ -536,7 +593,7 @@ footer .gov { display:block; margin-top:4px; font-size:11.5px; color:#9aa3b3; }
 
 <footer>
   <b>LASCO CORPORATION</b> — Guichet RH · Document interne, confidentiel employés · <a href="mailto:m.colombe@lascocorp.com">m.colombe@lascocorp.com</a>
-  <span class="gov">Propriétaire : Ressources humaines · Version 2.0 · Mise à jour : 30 juillet 2026 · Prochaine révision : juillet 2027</span>
+  <span class="gov">Propriétaire : Ressources humaines · Version 2.2 · Mise à jour : 31 juillet 2026 · Prochaine révision : juillet 2027</span>
 </footer>
 
 <script>
@@ -709,8 +766,8 @@ footer .gov { display:block; margin-top:4px; font-size:11.5px; color:#9aa3b3; }
           return;
         }
 
-        // Bloc FAQ ou carte contact isolée
-        if (el.matches(ATOMIC) || el.classList.contains('contact-card')) {
+        // Bloc FAQ, carte contact isolée ou lien vers un système externe
+        if (el.matches(ATOMIC) || el.classList.contains('contact-card') || el.classList.contains('cta-sp')) {
           flushProse();
           index.push({ tab: sec.id, label: label, crumb: heading, node: el.cloneNode(true), text: fold(el.textContent) });
           return;
@@ -784,7 +841,7 @@ footer .gov { display:block; margin-top:4px; font-size:11.5px; color:#9aa3b3; }
       var empty = document.createElement('div');
       empty.className = 'no-results';
       empty.innerHTML = '<b>Aucun résultat</b>Essayez un autre terme, ou parcourez les rubriques du Guichet. '
-                      + 'Si l\'information reste introuvable, contactez Marie Colombe.';
+                      + 'Les procédures détaillées se trouvent dans SharePoint, onglet « Procédures ».';
       resList.appendChild(empty);
       return;
     }
